@@ -1,4 +1,4 @@
-# Cueva Skills
+# Anthony's Skills
 
 Small, composable Agent Skills for doing creative work with AI agents. They are written to work across models, editors, and operating systems.
 
