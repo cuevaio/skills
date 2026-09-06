@@ -1,0 +1,26 @@
+{
+  "name": "screencasting",
+  "version": "0.1.0",
+  "description": "Plan, set up, record, edit, and publish clear screencasts.",
+  "author": {
+    "name": "cuevaio",
+    "url": "https://github.com/cuevaio"
+  },
+  "repository": "https://github.com/cuevaio/skills",
+  "license": "MIT",
+  "keywords": [
+    "screencasting",
+    "video",
+    "recording",
+    "editing",
+    "publishing"
+  ],
+  "skills": [
+    "./skills/screencasting/screencast",
+    "./skills/screencasting/screencast-plan",
+    "./skills/screencasting/screencast-setup",
+    "./skills/screencasting/screencast-record",
+    "./skills/screencasting/screencast-edit",
+    "./skills/screencasting/screencast-publish"
+  ]
+}

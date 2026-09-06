@@ -1,0 +1,5 @@
+interface:
+  display_name: "Screencast"
+  short_description: "Guide a screencast from idea to publication"
+policy:
+  allow_implicit_invocation: false
