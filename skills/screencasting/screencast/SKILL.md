@@ -16,6 +16,7 @@ Move a screencast through five **gates**. Load and follow the matching phase ski
 | A production brief, but no tested capture setup | `screencast-setup` | A test recording has passed |
 | A tested setup, but no usable footage | `screencast-record` | The current batch has verified takes |
 | Raw footage or a rough timeline | `screencast-edit` | Feedback is returned or the final timeline is approved |
+| An edited `.screenstudio` project that needs a 9:16 reconstruction | `screenstudio-vertical-video` | A synchronized vertical export passes technical and visual QC |
 | An approved timeline or finished master | `screencast-publish` | The published video works for its audience |
 
 If the user names a phase or already has its input, start there. For an end-to-end request, run the phases in order and carry each phase's handoff into the next.

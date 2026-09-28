@@ -1,7 +1,7 @@
 {
   "name": "screencasting",
-  "version": "0.1.0",
-  "description": "Plan, set up, record, edit, and publish clear screencasts.",
+  "version": "0.2.0",
+  "description": "Plan, record, edit, reconstruct, and publish clear screencasts and vertical videos.",
   "author": {
     "name": "cuevaio",
     "url": "https://github.com/cuevaio"
@@ -11,6 +11,8 @@
   "keywords": [
     "screencasting",
     "video",
+    "vertical-video",
+    "screenstudio",
     "recording",
     "editing",
     "publishing"
@@ -21,6 +23,7 @@
     "./skills/screencasting/screencast-setup",
     "./skills/screencasting/screencast-record",
     "./skills/screencasting/screencast-edit",
+    "./skills/screencasting/screenstudio-vertical-video",
     "./skills/screencasting/screencast-publish"
   ]
 }

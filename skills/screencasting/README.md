@@ -8,9 +8,10 @@ A complete, editor-neutral workflow for making useful screencasts with high qual
 2. [`screencast-setup`](screencast-setup/SKILL.md) creates a repeatable setup and proves it with a test recording.
 3. [`screencast-record`](screencast-record/SKILL.md) captures verified takes in short, editable chunks.
 4. [`screencast-edit`](screencast-edit/SKILL.md) rough-cuts early batches, returns feedback, and produces the final timeline.
-5. [`screencast-publish`](screencast-publish/SKILL.md) protects, exports, checks, hosts, and launches the finished video.
+5. [`screenstudio-vertical-video`](screenstudio-vertical-video/SKILL.md) is the specialized reconstruction path for turning an edited Screen Studio project into a synchronized 9:16 short.
+6. [`screencast-publish`](screencast-publish/SKILL.md) protects, exports, checks, hosts, and launches the finished video.
 
-Run [`screencast`](screencast/SKILL.md) when you want one orchestrator to route the whole production. Install all six skills when using the orchestrator. Each phase skill can also be installed and used independently.
+Run [`screencast`](screencast/SKILL.md) when you want one orchestrator to route the whole production. Install all seven skills when using the orchestrator. Each phase skill and the Screen Studio reconstruction skill can also be installed and used independently.
 
 For a series, alternate recording and feedback editing in small batches. Move to final editing only after the latest feedback cut finds no unresolved production-wide issue and every planned lesson has a verified take.
 
@@ -37,4 +38,5 @@ npx skills@latest add cuevaio/skills --skill screencast-plan
 | `screencast-setup` | Model or user | A tested setup and reusable preflight checklist |
 | `screencast-record` | Model or user | Verified takes, a take log, and edit notes |
 | `screencast-edit` | Model or user | Batch feedback or an approved final timeline |
+| `screenstudio-vertical-video` | Model or user | A synchronized vertical composition and technically validated export |
 | `screencast-publish` | Model or user | A validated publication and optional promotion plan |

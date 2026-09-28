@@ -28,6 +28,7 @@ Plan, set up, record, edit, and publish clear screencasts without turning equipm
 - [`screencast-setup`](skills/screencasting/screencast-setup/SKILL.md): build and test a reliable capture setup
 - [`screencast-record`](skills/screencasting/screencast-record/SKILL.md): capture usable takes in editable chunks
 - [`screencast-edit`](skills/screencasting/screencast-edit/SKILL.md): rough cut, repair, polish, caption, and quality-check
+- [`screenstudio-vertical-video`](skills/screencasting/screenstudio-vertical-video/SKILL.md): rebuild an edited Screen Studio project as a synchronized 9:16 short or reel
 - [`screencast-publish`](skills/screencasting/screencast-publish/SKILL.md): back up, export, host, package, and launch
 
 See the [screencasting collection](skills/screencasting/README.md) for the workflow and individual installation guidance.
