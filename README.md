@@ -1,6 +1,6 @@
 # Anthony's Skills
 
-Small, composable Agent Skills for doing creative work with AI agents. They are written to work across models, editors, and operating systems.
+Small, composable Agent Skills for producing useful content with AI agents. They are written to work across models, editors, platforms, and operating systems.
 
 ## Installation
 
@@ -14,24 +14,29 @@ Choose the skills and agents you want when prompted. The installer copies ordina
 
 Skills are grouped by domain under `skills/<category>/<skill>/SKILL.md`.
 
-### Screencasting
+### Content Production
 
-Plan, set up, record, edit, and publish clear screencasts without turning equipment or post-production into a bottleneck.
+Move an idea through research, scripting, recording, editing, repurposing, platform writing, and publication while preserving the creator's voice.
 
 **User-invoked**
 
-- [`screencast`](skills/screencasting/screencast/SKILL.md): route an end-to-end production through the right phase
+- [`content`](skills/content-production/content/SKILL.md): route an end-to-end production through the right phase
 
 **Model-invoked**
 
-- [`screencast-plan`](skills/screencasting/screencast-plan/SKILL.md): turn an idea into a recordable production brief
-- [`screencast-setup`](skills/screencasting/screencast-setup/SKILL.md): build and test a reliable capture setup
-- [`screencast-record`](skills/screencasting/screencast-record/SKILL.md): capture usable takes in editable chunks
-- [`screencast-edit`](skills/screencasting/screencast-edit/SKILL.md): rough cut, repair, polish, caption, and quality-check
-- [`screenstudio-vertical-video`](skills/screencasting/screenstudio-vertical-video/SKILL.md): rebuild an edited Screen Studio project as a synchronized 9:16 short or reel
-- [`screencast-publish`](skills/screencasting/screencast-publish/SKILL.md): back up, export, host, package, and launch
+- [`content-voice`](skills/content-production/content-voice/SKILL.md): learn and maintain a creator-approved writing and speaking profile
+- [`content-plan`](skills/content-production/content-plan/SKILL.md): choose the audience, angle, promise, format, channel, and CTA
+- [`content-research`](skills/content-production/content-research/SKILL.md): build a source-backed fact and evidence pack
+- [`content-script`](skills/content-production/content-script/SKILL.md): write hooks, outlines, talking points, and spoken scripts
+- [`video-setup`](skills/content-production/video-setup/SKILL.md): build and test a reliable capture setup
+- [`video-record`](skills/content-production/video-record/SKILL.md): record usable takes in efficient chunks
+- [`video-edit`](skills/content-production/video-edit/SKILL.md): rough-cut and polish vertical or horizontal videos
+- [`screenstudio-edit`](skills/content-production/screenstudio-edit/SKILL.md): edit or reconstruct Screen Studio projects programmatically
+- [`content-repurpose`](skills/content-production/content-repurpose/SKILL.md): derive useful clips and posts from a canonical source
+- [`social-post`](skills/content-production/social-post/SKILL.md): write native X, LinkedIn, and Instagram packages
+- [`content-publish`](skills/content-production/content-publish/SKILL.md): validate, post, and verify finished content
 
-See the [screencasting collection](skills/screencasting/README.md) for the workflow and individual installation guidance.
+See the [content-production collection](skills/content-production/README.md) for the workflow and individual installation guidance.
 
 ## Philosophy
 

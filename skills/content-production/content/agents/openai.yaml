@@ -1,0 +1,5 @@
+interface:
+  display_name: "Content"
+  short_description: "Route content from idea to publication"
+policy:
+  allow_implicit_invocation: false

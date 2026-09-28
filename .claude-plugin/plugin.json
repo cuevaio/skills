@@ -1,7 +1,7 @@
 {
-  "name": "screencasting",
-  "version": "0.2.0",
-  "description": "Plan, record, edit, reconstruct, and publish clear screencasts and vertical videos.",
+  "name": "content-production",
+  "version": "1.0.0",
+  "description": "Plan, research, script, record, edit, repurpose, write, and publish content in a consistent creator voice.",
   "author": {
     "name": "cuevaio",
     "url": "https://github.com/cuevaio"
@@ -9,21 +9,30 @@
   "repository": "https://github.com/cuevaio/skills",
   "license": "MIT",
   "keywords": [
-    "screencasting",
+    "content",
+    "content-creation",
+    "creator",
     "video",
     "vertical-video",
     "screenstudio",
     "recording",
     "editing",
+    "social-media",
+    "writing",
     "publishing"
   ],
   "skills": [
-    "./skills/screencasting/screencast",
-    "./skills/screencasting/screencast-plan",
-    "./skills/screencasting/screencast-setup",
-    "./skills/screencasting/screencast-record",
-    "./skills/screencasting/screencast-edit",
-    "./skills/screencasting/screenstudio-vertical-video",
-    "./skills/screencasting/screencast-publish"
+    "./skills/content-production/content",
+    "./skills/content-production/content-voice",
+    "./skills/content-production/content-plan",
+    "./skills/content-production/content-research",
+    "./skills/content-production/content-script",
+    "./skills/content-production/video-setup",
+    "./skills/content-production/video-record",
+    "./skills/content-production/video-edit",
+    "./skills/content-production/screenstudio-edit",
+    "./skills/content-production/content-repurpose",
+    "./skills/content-production/social-post",
+    "./skills/content-production/content-publish"
   ]
 }
