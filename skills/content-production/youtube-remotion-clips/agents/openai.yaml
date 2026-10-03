@@ -1,0 +1,3 @@
+interface:
+  display_name: "Usual clip style"
+  short_description: "Generate clips with the approved style and cached assets"

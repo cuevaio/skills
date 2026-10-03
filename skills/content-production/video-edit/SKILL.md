@@ -12,6 +12,10 @@ Choose the mode:
 - **Feedback edit:** cut a small early batch, report production-wide changes, and return to `video-record`.
 - **Final edit:** complete all passes and hand an approved master to repurposing or publication.
 
+## Creator defaults
+
+For this creator, read [the saved creator style](../content-voice/references/creator-style.md) for editorial preferences. When making their usual short clips, use [youtube-remotion-clips](../youtube-remotion-clips/SKILL.md) for the approved visual defaults and cached resources. Keep sustained images relevant to the explanation and preserve complete ideas through tight cuts.
+
 ## 1. Protect And Organize
 
 Keep original recordings intact. Synchronize camera, screen, microphone, system audio, and secondary sources. Use the take log to identify preferred takes.

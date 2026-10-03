@@ -9,6 +9,10 @@ Produce native platform packages from one factual source of truth. Read `CONTENT
 
 Check the selected platform's calibration status in the profile. An uncalibrated adaptation can produce a draft, but it cannot be labelled voice-approved until the creator reviews it.
 
+## Creator defaults
+
+For this creator, read [the saved creator style](../content-voice/references/creator-style.md) alongside any local `CONTENT_STYLE.md`. Use the approved lowercase, casual voice and native platform adaptations. For interview recommendations, integrate source context into the specific takeaway rather than attaching a fixed attribution footer. The profile distinguishes supported first-person learning from the speaker's experiences.
+
 ## 1. Establish The Post Job
 
 Identify:
@@ -42,7 +46,7 @@ Avoid engagement bait, empty suspense, generic inspiration, fake vulnerability, 
 
 ## 4. Package The Post
 
-Return:
+For a copy-only request, return the requested posts grouped by clip and platform. Keep alternate hooks and checks in the saved work; do not burden the answer with publishing metadata. When a complete publishing package is requested, return:
 
 ```markdown
 ## <Platform> Package

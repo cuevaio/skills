@@ -1,0 +1,230 @@
+[
+  {
+    "id": "01-clear-intent",
+    "number": 1,
+    "title": "The bottleneck is your intent",
+    "start": 504.64,
+    "end": 572.05,
+    "color": "#9fe7d0",
+    "reason": "Explains why domain expertise and the ability to express intent become more valuable as models improve.",
+    "visuals": [
+      {
+        "at": 0,
+        "image": "trust.png",
+        "label": "Better models. Clearer intent."
+      },
+      {
+        "at": 18.2,
+        "image": "trust.png",
+        "label": "Domain expertise gives you an advantage"
+      },
+      {
+        "at": 49.0,
+        "image": "trust.png",
+        "label": "Transfer your vision to the agent"
+      }
+    ],
+    "videoShots": [
+      {
+        "at": 0,
+        "focus": "right"
+      },
+      {
+        "at": 18.2,
+        "focus": "both"
+      },
+      {
+        "at": 29.8,
+        "focus": "right"
+      },
+      {
+        "at": 49.0,
+        "focus": "both"
+      }
+    ],
+    "brand": "POTETO",
+    "showLabel": "WITH MATT POCOCK",
+    "speakerLabel": "Lauren Tan \u00b7 @poteto"
+  },
+  {
+    "id": "02-ai-kitchen",
+    "number": 2,
+    "title": "Run an AI Michelin kitchen",
+    "start": 908.92,
+    "end": 980.8,
+    "color": "#efc48a",
+    "reason": "Connects agent delegation to craft, responsibility, and designing the environment rather than merely producing more code.",
+    "visuals": [
+      {
+        "at": 0,
+        "image": "kitchen.png",
+        "label": "You design the kitchen"
+      },
+      {
+        "at": 38.5,
+        "image": "kitchen.png",
+        "label": "You are responsible for the result"
+      },
+      {
+        "at": 56.5,
+        "image": "kitchen.png",
+        "label": "Skills + environment + codebase"
+      }
+    ],
+    "videoShots": [
+      {
+        "at": 0,
+        "focus": "right"
+      },
+      {
+        "at": 14.3,
+        "focus": "both"
+      },
+      {
+        "at": 38.5,
+        "focus": "right"
+      },
+      {
+        "at": 56.5,
+        "focus": "both"
+      }
+    ],
+    "brand": "POTETO",
+    "showLabel": "WITH MATT POCOCK",
+    "speakerLabel": "Lauren Tan \u00b7 @poteto"
+  },
+  {
+    "id": "03-verification",
+    "number": 3,
+    "title": "Give your agent hands and eyes",
+    "start": 1050.48,
+    "end": 1086.5,
+    "color": "#a9d5ff",
+    "reason": "Names verification as the most important skill and explains it through real interaction, debugging, traces, and snapshots.",
+    "visuals": [
+      {
+        "at": 0,
+        "image": "verification.png",
+        "label": "Verification earns trust"
+      },
+      {
+        "at": 22.3,
+        "image": "verification.png",
+        "label": "Run it. Use it. Inspect the result."
+      }
+    ],
+    "videoShots": [
+      {
+        "at": 0,
+        "focus": "right"
+      },
+      {
+        "at": 12.9,
+        "focus": "both"
+      },
+      {
+        "at": 22.3,
+        "focus": "right"
+      }
+    ],
+    "brand": "POTETO",
+    "showLabel": "WITH MATT POCOCK",
+    "speakerLabel": "Lauren Tan \u00b7 @poteto"
+  },
+  {
+    "id": "04-agent-coordination",
+    "number": 4,
+    "title": "How 2,500 PRs actually happen",
+    "start": 2382.87,
+    "end": 2446.0,
+    "color": "#c5b9ff",
+    "reason": "Answers the interview's main output question with context gathering, multiple projects, and coordinator agents that delegate work.",
+    "visuals": [
+      {
+        "at": 0,
+        "image": "team.png",
+        "label": "Teach agents to get their own context"
+      },
+      {
+        "at": 30,
+        "image": "team.png",
+        "label": "Coordinator agents delegate and supervise"
+      }
+    ],
+    "videoShots": [
+      {
+        "at": 0,
+        "focus": "right"
+      },
+      {
+        "at": 17.9,
+        "focus": "both"
+      },
+      {
+        "at": 30,
+        "focus": "right"
+      },
+      {
+        "at": 55.6,
+        "focus": "both"
+      }
+    ],
+    "brand": "POTETO",
+    "showLabel": "WITH MATT POCOCK",
+    "speakerLabel": "Lauren Tan \u00b7 @poteto",
+    "corrections": {
+      "Arctic": ""
+    }
+  },
+  {
+    "id": "05-merge-while-sleeping",
+    "number": 5,
+    "title": "My agents merge while I sleep",
+    "start": 3290.12,
+    "end": 3353.15,
+    "color": "#b9caff",
+    "reason": "Pairs the overnight-merging outcome with its prerequisites, morning review, course correction, and the time needed to earn trust.",
+    "visuals": [
+      {
+        "at": 0,
+        "image": "verification.png",
+        "label": "Verification + a constrained environment"
+      },
+      {
+        "at": 15.4,
+        "image": "sleep.png",
+        "label": "Review in the morning. Correct the system."
+      },
+      {
+        "at": 55.8,
+        "image": "sleep.png",
+        "label": "Agents merge code while she sleeps"
+      }
+    ],
+    "videoShots": [
+      {
+        "at": 0,
+        "focus": "right"
+      },
+      {
+        "at": 15.4,
+        "focus": "both"
+      },
+      {
+        "at": 29.4,
+        "focus": "right"
+      },
+      {
+        "at": 55.8,
+        "focus": "both"
+      }
+    ],
+    "brand": "POTETO",
+    "showLabel": "WITH MATT POCOCK",
+    "speakerLabel": "Lauren Tan \u00b7 @poteto",
+    "corrections": {
+      "Sure.": "",
+      "sev?": "SEV?"
+    }
+  }
+]

@@ -31,12 +31,27 @@ Move an idea through research, scripting, recording, editing, repurposing, platf
 - [`video-setup`](skills/content-production/video-setup/SKILL.md): build and test a reliable capture setup
 - [`video-record`](skills/content-production/video-record/SKILL.md): record usable takes in efficient chunks
 - [`video-edit`](skills/content-production/video-edit/SKILL.md): rough-cut and polish vertical or horizontal videos
+- [`youtube-remotion-clips`](skills/content-production/youtube-remotion-clips/SKILL.md): download, transcribe and render complete subtitled clips with reusable Remotion assets
 - [`screenstudio-edit`](skills/content-production/screenstudio-edit/SKILL.md): edit or reconstruct Screen Studio projects programmatically
 - [`content-repurpose`](skills/content-production/content-repurpose/SKILL.md): derive useful clips and posts from a canonical source
 - [`social-post`](skills/content-production/social-post/SKILL.md): write native X, LinkedIn, and Instagram packages
 - [`content-publish`](skills/content-production/content-publish/SKILL.md): validate, post, and verify finished content
 
 See the [content-production collection](skills/content-production/README.md) for the workflow and individual installation guidance.
+
+## Organization and maintenance
+
+Keep domain categories under `skills/`, with one independently discoverable `SKILL.md` per capability. `content` is a small router; phase skills own editorial decisions; tool adapters own implementation. Detailed procedures, scripts, fonts and image prompt references live inside the skill that uses them. Generate images in each production workspace; no images are bundled. The YouTube/Remotion adapter is a sibling of the Screen Studio adapter, so you can install either without loading both workflows.
+
+Anthony's explicitly approved [creator defaults](skills/content-production/content-voice/references/creator-style.md) and examples are included. Another creator's local `CONTENT_STYLE.md` overrides them. Production footage, model weights, runtimes and the licensed opening sound stay outside the repository.
+
+Run repository checks with a Python environment containing PyYAML:
+
+```bash
+python scripts/validate_skills.py
+```
+
+See [the content collection](skills/content-production/README.md) for installation combinations and [the organization decision](docs/skill-organization.md) for the rationale and sources.
 
 ## Philosophy
 

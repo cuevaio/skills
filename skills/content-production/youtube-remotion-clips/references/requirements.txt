@@ -1,0 +1,6 @@
+yt-dlp==2026.9.27.232945.dev0
+faster-whisper==1.2.1
+av==16.1.0
+imageio-ffmpeg==0.6.0
+pillow==12.3.0
+requests==2.32.5

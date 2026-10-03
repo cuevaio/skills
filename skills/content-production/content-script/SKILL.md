@@ -7,6 +7,10 @@ description: Write or revise spoken content from a brief, research pack, transcr
 
 Write for a mouth, an ear, and a visual timeline. Read `CONTENT_STYLE.md`, the content brief, and the research pack when available.
 
+## Creator defaults
+
+For this creator, read [the saved creator style](../content-voice/references/creator-style.md) alongside the local profile. Carry the plain, conversational language into spoken drafts, while treating spoken delivery as provisional rather than already calibrated. Use source context naturally and keep the speaker's experience attributed to them.
+
 ## 1. Choose The Delivery Asset
 
 Use the least rigid mode that protects clarity:

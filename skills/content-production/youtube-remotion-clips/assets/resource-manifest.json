@@ -1,0 +1,28 @@
+{
+  "font": {
+    "path": "assets/remotion/public/SpaceGrotesk-Variable.ttf",
+    "sha256": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+    "license": "assets/remotion/public/SpaceGrotesk-LICENSE.txt",
+    "source": "https://github.com/floriankarsten/space-grotesk"
+  },
+  "privateSound": {
+    "path": "~/.cache/clip-production/sfx/mixkit-2627/opening-swipe.wav",
+    "sha256": "cf121dfa7b20bafcd8532c182376213c98bcc3d415f5897c02888f87015556b4",
+    "sourcePath": "~/.cache/clip-production/sfx/mixkit-2627/mixkit-fast-swipe-zoom-2627.wav",
+    "licensePath": "~/.cache/clip-production/sfx/mixkit-2627/mixkit-license.html",
+    "sourceUrl": "https://assets.mixkit.co/active_storage/sfx/2627/2627.wav",
+    "sourcePage": "https://mixkit.co/free-sound-effects/woosh/",
+    "licenseUrl": "https://mixkit.co/license/#sfxFree",
+    "use": "Private reuse in finished videos; exclude standalone sound from shared skill, template and source packages"
+  },
+  "runtime": {
+    "nodeModules": "~/.cache/clip-production/runtime/remotion-4.0.532/node_modules",
+    "packageLock": "~/.cache/clip-production/runtime/remotion-4.0.532/package-lock.json",
+    "python": null,
+    "whisperCache": "~/.cache/huggingface/hub",
+    "cachedModels": [
+      "Systran/faster-whisper-small.en",
+      "Systran/faster-whisper-medium.en"
+    ]
+  }
+}
