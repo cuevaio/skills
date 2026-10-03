@@ -1,6 +1,7 @@
 """Apply a source-specific visual plan to the tightened timeline."""
 import argparse
 import json
+import math
 from pathlib import Path
 
 
@@ -26,6 +27,27 @@ def main():
                 raise ValueError(f"{clip['id']}: visual falls outside the usable timeline")
             if not (Path('remotion/public')/visual['image']).is_file():
                 raise FileNotFoundError(visual['image'])
+            kind = visual.get('kind')
+            if kind not in {None, 'screenshot', 'portraits'}:
+                raise ValueError('Unknown visual kind')
+            if kind == 'screenshot':
+                size = visual.get('imageSize', [])
+                if len(size) != 2 or any(not isinstance(v, (int, float)) or not math.isfinite(v) or v <= 0 for v in size):
+                    raise ValueError('Screenshot imageSize must contain positive dimensions')
+                for field in ['cropRect'] + (['splitCropRect'] if 'splitCropRect' in visual else []):
+                    crop = visual.get(field, [])
+                    if len(crop) != 4 or any(not isinstance(v, (int, float)) or not math.isfinite(v) for v in crop):
+                        raise ValueError('Screenshot crop must contain four finite numbers')
+                    x, y, width, height = crop
+                    if x < 0 or y < 0 or width <= 0 or height <= 0 or x+width > size[0] or y+height > size[1]:
+                        raise ValueError('Screenshot crop must fit inside imageSize')
+            if kind == 'portraits':
+                portraits = visual.get('portraits', [])
+                if not 1 <= len(portraits) <= 2:
+                    raise ValueError('Use one or two portrait images per passage')
+                for portrait in portraits:
+                    if not (Path('remotion/public')/portrait['image']).is_file():
+                        raise FileNotFoundError(portrait['image'])
             visual.update(at=start, duration=duration)
             visual.setdefault('objectPosition', '50% 50%')
             visual.setdefault('visualStart', start)

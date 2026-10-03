@@ -11,6 +11,9 @@ paths = [Path(folder)/(clip['id']+suffix) for clip in clips
 paths += [Path('edit-plan.json'), Path('provenance.json'), Path('remotion/clips.json')]
 paths += list(Path('review').glob('*verification.json'))
 paths += [Path(name) for name in ['social-copy.json','CONTENT_STYLE.md'] if Path(name).is_file()]
+paths += [Path(name) for name in ['visual-plan.json','review/visual-sources.json'] if Path(name).is_file()]
+paths += sorted({Path('remotion/public')/asset for clip in clips for cut in clip.get('cutaways',[]) for asset in [cut['image']]+[person['image'] for person in cut.get('portraits',[])]})
+paths = list(dict.fromkeys(paths))
 for path in paths:
     if not path.is_file():
         raise FileNotFoundError(path)

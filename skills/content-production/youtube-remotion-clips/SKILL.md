@@ -1,6 +1,6 @@
 ---
 name: youtube-remotion-clips
-description: Create clips, reels or shorts from any YouTube URL or recording in the creator's default style automatically. Use for requests like "create 5 clips from this video" without requiring a style reference or a Remotion mention. Download with yt-dlp, transcribe with Whisper, and render tight camera cuts, highlighted captions, fresh images, split covers and an opening swipe.
+description: Create clips, reels or shorts from any YouTube URL or recording in the creator's default style automatically. Use for requests like "create 5 clips from this video" without requiring a style reference or a Remotion mention. Download with yt-dlp, transcribe with Whisper, and render tight camera cuts, highlighted captions, relevant sourced or generated images, split covers and an opening swipe.
 compatibility: Requires Python, Node.js, FFmpeg and a Remotion-compatible browser. Downloads, uncached Whisper models and new images may require network access.
 ---
 
@@ -10,7 +10,7 @@ This is the rendering adapter in the content-production collection, alongside `s
 
 ## Default for every clip request
 
-Apply this collection's approved clip preset automatically whenever the creator asks for clips, reels or shorts. A request such as "create 5 clips from this YouTube video" is sufficient: download, transcribe, select five complete ideas, generate relevant images, render and verify the finished clips in the saved style. Do not ask which style to use or require the creator to mention a previous project, "my usual style", Remotion or this skill.
+Apply this collection's approved clip preset automatically whenever the creator asks for clips, reels or shorts. A request such as "create 5 clips from this YouTube video" is sufficient: download, transcribe, select five complete ideas, source relevant real images and generate conceptual images where useful, render and verify the finished clips in the saved style. Do not ask which style to use or require the creator to mention a previous project, "my usual style", Remotion or this skill.
 
 The visual style is a permanent creator preference, independent of source origin, speaker, subject and language. It applies to YouTube interviews, other hosted videos, local recordings, podcasts and screen recordings. Adapt source acquisition, transcription language, speaker crops and illustrative content to the new recording while retaining the preset. Source-specific interview names, timestamps, images and personal claims are not defaults.
 
@@ -22,7 +22,7 @@ The default is already approved for Anthony. Use the approved [creator profile](
 
 The usual treatment is 1080×1920 at 30 fps, full-bleed speaker camera, hard cuts with modest punch-ins, measured pause removal and pitch-preserving 1.15× speech. Adjust speed and silence thresholds for the actual voice. Keep completed ideas, necessary caveats and ending words.
 
-Space Grotesk captions use 64 px, weight 620, white on translucent black, centered 320 px above the bottom with 65 px side insets. Highlight the active word in the clip accent. Hold related images through their explanation, using both full-screen and camera-top/image-bottom layouts. The accepted examples hold images for several seconds; do not repeat sub-second flashes. At frame zero, show a camera/image split with the title for exactly one frame, export a matching PNG, then resume without shifting audio. Mix a classic short opening swipe below the voice.
+Space Grotesk captions use 64 px, weight 620, white on translucent black, centered 320 px above the bottom with 65 px side insets. Highlight the active word in the clip accent. Hold related images through their explanation, using both full-screen and camera-top/image-bottom layouts. Fill every region edge to edge with media. Do not add backgrounds, cards, borders, padding, headings, name labels or source credits over cutaways. Keep source attribution in the production ledger. Subtitles and the one-frame preview title remain part of the preset. The accepted examples hold images for several seconds; do not repeat sub-second flashes. At frame zero, show a camera/image split with the title for exactly one frame, export a matching PNG, then resume without shifting audio. Mix a classic short opening swipe below the voice.
 
 Bootstrap from this skill's actual location, rather than an assumed home path:
 
@@ -30,7 +30,7 @@ Bootstrap from this skill's actual location, rather than an assumed home path:
 python3 <skill-dir>/scripts/bootstrap_project.py --workspace /path/to/production
 ```
 
-The offline bootstrap copies the template, licensed font, image prompt references and production helpers, preserves existing editable files, and reuses matching local runtime and sound caches. The skill ships no images. Read [the image prompts](references/image-prompts.md), adapt a scene to the current spoken idea, and generate fresh illustrations into the production workspace. Record the actual prompt and generation provenance there. These are conceptual illustrations, not factual evidence. Use camera portraits from the current recording. Font and cache metadata are in [the resource manifest](assets/resource-manifest.json). Read [resource reuse](references/resource-reuse.md) for missing caches or another machine. `--sound required` checks the private swipe cache; `auto` records missing setup without downloading; `skip` omits it. The opening swipe is part of the default, even when not separately requested. Final delivery needs it unless the creator explicitly omits it; a missing cache is a setup issue to resolve or disclose, not a stylistic choice.
+The offline bootstrap copies the template, licensed font, image prompt references and production helpers, preserves existing editable files, and reuses matching local runtime and sound caches. The skill ships no images. Read [sourced visual guidance](references/sourced-visuals.md) when choosing visuals. Prefer actual product screenshots and verified photos of the people mentioned. Use [the image prompts](references/image-prompts.md) for conceptual illustrations when they help explain an idea. Store all downloaded or generated images in the production workspace, with source URLs or generation provenance. Conceptual illustrations are not factual evidence. Use camera portraits from the current recording. Font and cache metadata are in [the resource manifest](assets/resource-manifest.json). Read [resource reuse](references/resource-reuse.md) for missing caches or another machine. `--sound required` checks the private swipe cache; `auto` records missing setup without downloading; `skip` omits it. The opening swipe is part of the default, even when not separately requested. Final delivery needs it unless the creator explicitly omits it; a missing cache is a setup issue to resolve or disclose, not a stylistic choice.
 
 ## Acquire and transcribe
 
