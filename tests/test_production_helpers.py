@@ -58,6 +58,35 @@ class ProductionHelpers(unittest.TestCase):
             self.assertNotEqual(required.returncode, 0)
             self.assertIn(b'Private swipe cache is missing', required.stderr)
 
+    def test_sourced_visuals_keep_crops_and_reject_missing_photos_without_mutation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            workspace = Path(temp)
+            public = workspace/'remotion/public'
+            public.mkdir(parents=True)
+            (public/'screen.png').write_bytes(b'asset fixture')
+            (workspace/'remotion/style.json').write_text(json.dumps({'canvas': {'fps': 30}}))
+            metadata = workspace/'remotion/clips.json'
+            metadata.write_text(json.dumps([dict(id='clip', duration=15, color='#a9d5ff')]))
+            cut = dict(at=2, duration=6, layout='split', image='screen.png', kind='screenshot',
+                       imageSize=[1200,900], cropRect=[0,0,600,900], splitCropRect=[0,0,1000,900])
+            plan = workspace/'visual-plan.json'
+            plan.write_text(json.dumps([dict(id='clip',cutaways=[cut])]))
+            command = [sys.executable,str(ADAPTER/'scripts/plan_visual_revision.py'),'--plan',str(plan)]
+            subprocess.run(command,cwd=workspace,check=True,capture_output=True)
+            actual = json.loads(metadata.read_text())[0]['cutaways'][0]
+            self.assertEqual(actual['splitCropRect'],[0,0,1000,900])
+            approved = metadata.read_bytes()
+            cut.update(kind='portraits', portraits=[dict(image='missing.jpg')])
+            plan.write_text(json.dumps([dict(id='clip',cutaways=[cut])]))
+            result = subprocess.run(command,cwd=workspace,capture_output=True)
+            self.assertNotEqual(result.returncode,0)
+            self.assertEqual(metadata.read_bytes(),approved)
+            cut.update(kind='screenshot',cropRect=[1100,0,600,900])
+            plan.write_text(json.dumps([dict(id='clip',cutaways=[cut])]))
+            result = subprocess.run(command,cwd=workspace,capture_output=True)
+            self.assertNotEqual(result.returncode,0)
+            self.assertEqual(metadata.read_bytes(),approved)
+
     def test_visual_plan_accepts_new_ids_and_rejects_invalid_ranges_without_mutation(self):
         with tempfile.TemporaryDirectory() as temp:
             workspace = Path(temp)

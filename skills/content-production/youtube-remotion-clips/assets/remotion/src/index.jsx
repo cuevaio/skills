@@ -3,6 +3,23 @@ import {AbsoluteFill, Audio, Composition, OffthreadVideo, Img, staticFile, useCu
 import clips from '../clips.json';
 import style from '../style.json';
 
+function EvidenceVisual({visual, split, zoom}) {
+  const portraits = visual.portraits || [];
+  if (visual.kind === 'portraits') {
+    return <AbsoluteFill style={{display:'grid',gridTemplateColumns:split ? `repeat(${portraits.length},1fr)` : '1fr',gridTemplateRows:split ? '1fr' : `repeat(${portraits.length},1fr)`,transform:`scale(${zoom})`}}>
+      {portraits.map(person=><div key={person.image} style={{position:'relative',overflow:'hidden',minWidth:0,minHeight:0}}>
+        <Img src={staticFile(person.image)} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:person.objectPosition||'50% 30%'}}/>
+      </div>)}
+    </AbsoluteFill>;
+  }
+  const crop = split ? (visual.splitCropRect || visual.cropRect) : visual.cropRect;
+  const height = split ? style.canvas.height-style.visuals.splitY : style.canvas.height;
+  const scale = Math.max(style.canvas.width/crop[2],height/crop[3]);
+  return <AbsoluteFill style={{overflow:'hidden',background:'#101418',transform:`scale(${zoom})`}}>
+    <Img src={staticFile(visual.image)} style={{position:'absolute',left:(style.canvas.width-crop[2]*scale)/2-crop[0]*scale,top:(height-crop[3]*scale)/2-crop[1]*scale,width:visual.imageSize[0]*scale,height:visual.imageSize[1]*scale,maxWidth:'none'}}/>
+  </AbsoluteFill>;
+}
+
 function Clip({clip}) {
   const [fontHandle] = useState(() => delayRender('Load Space Grotesk'));
   useEffect(() => {
@@ -26,7 +43,7 @@ function Clip({clip}) {
     {clip.soundEffect && <Audio src={staticFile(clip.soundEffect.media)} volume={clip.soundEffect.volume}/>}
     <OffthreadVideo src={staticFile(clip.media)} style={{width:'100%',height:'100%',objectFit:'cover',transform:`scale(${zoom})`,transformOrigin:'50% 32%'}}/>
     {cutaway && <div style={{position:'absolute',left:0,right:0,top:split?style.visuals.splitY:0,bottom:0,overflow:'hidden'}}>
-      <Img src={staticFile(cutaway.image)} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:cutaway.objectPosition,transform:`scale(${visualZoom})`}}/>
+      {cutaway.kind ? <EvidenceVisual visual={cutaway} split={split} zoom={visualZoom}/> : <Img src={staticFile(cutaway.image)} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:cutaway.objectPosition,transform:`scale(${visualZoom})`}}/>}
     </div>}
     {split && <div style={{position:'absolute',left:0,right:0,top:0,height:style.visuals.splitY,overflow:'hidden'}}>
       <OffthreadVideo muted src={staticFile(clip.splitMedia)} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 38%',transform:`scale(${tight?1.04:1})`,transformOrigin:'50% 30%'}}/>

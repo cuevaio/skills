@@ -2,7 +2,7 @@
 
 Plan a complete illustrative passage around the actual spoken topic. Hold the image long enough to understand, optionally beginning full-screen and continuing below the camera. Choose boundaries from the explanation; avoid repeated sub-second flashes.
 
-Use cover sizing in full-screen and split regions. Inspect image focal points in both crops, keeping faces, gestures and important objects visible. Generate a separate composition when one image cannot serve both layouts.
+Fill the entire full-screen or split region with image pixels using cover sizing or a focused screenshot crop. Do not add decorative backgrounds, cards, borders, padding, headings, labels or credits. Keep subtitles and the one-frame cover title. Source attribution belongs in the production ledger. Inspect image focal points in both crops, keeping faces, gestures and important objects visible. Generate a separate composition when one image cannot serve both layouts.
 
 The default split places camera above the image. A tightly cropped portrait cannot restore lost shoulders, so generate the wide camera from the original source using the same retained segments, rates and frame counts. Keep that overlay muted; continuous audio comes from the tightened media, including during image-only passages.
 

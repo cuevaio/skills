@@ -40,7 +40,7 @@ Avoid repeating a standalone "from [interviewer]'s interview with [guest]." foot
 
 All clips, reels and shorts automatically use the [saved clip preset](../../youtube-remotion-clips/SKILL.md), independent of origin, topic, speaker and language: full camera, tight cuts without empty silences, Space Grotesk captions in the saved position with active-word highlighting, sustained full-screen and split images, a first-frame split cover with a title, and a brief opening swipe.
 
-The creator never needs to name a previous production or request this style again. Use the preset even when no local profile exists; only explicit creator or project instructions override it. The adapter owns the precise font, colors, placement, timing and reusable resources. Generate fresh images from its prompt references and choose camera crops from the current recording. Keep visual choices tied to the spoken idea.
+The creator never needs to name a previous production or request this style again. Use the preset even when no local profile exists; only explicit creator or project instructions override it. The adapter owns the precise font, colors, placement, timing and reusable resources. Prefer actual product screenshots and verified photos relevant to the spoken idea, with generated illustrations for concepts. Fill every available region with images or video. Do not add backgrounds, cards, padding, borders, headings, person labels or source credits. Keep subtitles and the single preview-frame title. Choose camera crops from the current recording. Store attribution in the production ledger.
 
 ## Maintenance
 
