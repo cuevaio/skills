@@ -35,26 +35,34 @@ class WatchPage(HTMLParser):
             self.backends.append(href)
 
 
+def select_audio(streams):
+    return max(streams,key=lambda s:('main' in s.get('roles',[]),'dub' not in s.get('roles',[]),
+                                    'enhanced-audio-intelligibility' not in s.get('roles',[]),s['bandwidth']))
+
+
 def representations(root, base):
     found = []
 
-    def walk(node, current, mime):
+    def walk(node, current, mime, language, roles):
         mime = node.attrib.get('mimeType', mime)
+        language = node.attrib.get('lang',language)
+        local_roles = [child.attrib.get('value') for child in node if child.tag.split('}')[-1]=='Role']
+        roles = local_roles or roles
         local = next((child.text for child in node if child.tag.split('}')[-1] == 'BaseURL'), None)
         if local:
             current = urljoin(current, local.strip())
         if node.tag.split('}')[-1] == 'Representation' and local:
             found.append(dict(id=node.attrib.get('id'), mimeType=mime, url=current,
                               height=int(node.attrib.get('height',0)),
-                              bandwidth=int(node.attrib.get('bandwidth',0))))
+                              bandwidth=int(node.attrib.get('bandwidth',0)),language=language,roles=roles))
         for child in node:
-            walk(child, current, mime)
+            walk(child, current, mime, language, roles)
 
-    walk(root, base, '')
+    walk(root, base, '', '', [])
     return found
 
 
-def discover(watch_url, output, html_path=None, max_backends=3, session=None, timeout=15):
+def discover(watch_url, output, html_path=None, max_backends=8, session=None, timeout=15, page_snapshots=None):
     output.parent.mkdir(parents=True, exist_ok=True)
     session = session or requests.Session()
     attempts, valid, visited = [], [], set()
@@ -66,6 +74,12 @@ def discover(watch_url, output, html_path=None, max_backends=3, session=None, ti
         try:
             if index == 0 and html_path:
                 html, resolved = html_path.read_text(), page_url
+            elif page_snapshots and page_url in page_snapshots:
+                snapshot=page_snapshots[page_url]
+                html,resolved=snapshot['html'],snapshot['url']
+                if snapshot['status']>=400:
+                    attempts.append(dict(stage='watch',status=snapshot['status'],result=page_failure(html,snapshot['status'])))
+                    continue
             else:
                 page = session.get(page_url, timeout=timeout)
                 html, resolved = page.text, page.url
@@ -81,7 +95,7 @@ def discover(watch_url, output, html_path=None, max_backends=3, session=None, ti
                     if candidate not in pages:
                         pages.append(candidate)
             if not parser.sources:
-                attempts.append(dict(stage='watch',status=page.status_code if not (index==0 and html_path) else None,
+                attempts.append(dict(stage='watch',status=(snapshot['status'] if page_snapshots and page_url in page_snapshots else (page.status_code if not (index==0 and html_path) else None)),
                                      result=page_failure(html,200)))
             for src in parser.sources:
                 url = urljoin(resolved, src)
@@ -99,7 +113,8 @@ def discover(watch_url, output, html_path=None, max_backends=3, session=None, ti
                         raise ValueError('DASH contains no direct representation URLs')
                     probes = []
                     for kind in ['audio/', 'video/']:
-                        stream = next((s for s in streams if s['mimeType'].startswith(kind)), None)
+                        candidates=[s for s in streams if s['mimeType'].startswith(kind)]
+                        stream=(select_audio(candidates) if kind=='audio/' else next(iter(candidates),None)) if candidates else None
                         if not stream:
                             continue
                         with session.get(stream['url'], headers={'Range':'bytes=0-1023'},
@@ -138,7 +153,7 @@ def main():
     parser.add_argument('watch_url', help='Current public mirror watch URL')
     parser.add_argument('--html', type=Path, help='HTML saved from a working browser; use its actual URL above')
     parser.add_argument('--output', type=Path, default=Path('source/download-routes.json'))
-    parser.add_argument('--max-backends', type=int, default=3)
+    parser.add_argument('--max-backends', type=int, default=8)
     args = parser.parse_args()
     if not 0 <= args.max_backends <= 8:
         parser.error('--max-backends must be between 0 and 8')
