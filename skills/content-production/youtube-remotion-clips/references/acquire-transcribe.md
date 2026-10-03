@@ -10,7 +10,7 @@ Run the bundled [download_source.py](../scripts/download_source.py) from the ins
 python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL_OR_LOCAL_FILE' --workspace .
 ```
 
-This is the default acquisition path. Do not write another downloader, range fetcher, manifest parser or muxing script. The command handles source identity, direct yt-dlp attempts, bounded public-mirror discovery, advertised backend links, fresh signed manifests, session cookies, checked range downloads, audio extraction, muxing, media probing and full decode verification. It selects video up to 1080p. Mirror acquisition currently supports DASH representations with direct BaseURL media and checked byte-range access; unsupported layouts are reported rather than guessed.
+This is the default acquisition path. Do not write another downloader, range fetcher, manifest parser or muxing script. The command handles source identity, direct yt-dlp attempts, bounded public-mirror discovery, browser challenge handoff, advertised backend links, fresh signed manifests, session cookies, checked range downloads, audio extraction, muxing, media probing and full decode verification. It selects video up to 1080p and prefers the original audio over dubbed tracks. Mirror acquisition supports DASH representations with direct BaseURL media and checked byte-range access; unsupported layouts are reported rather than guessed.
 
 Successful output is `source/video.mp4`, `source/audio.mka`, `source/acquisition.json` and an acquisition entry in `provenance.json`. The audio container preserves the original codec; do not assume an `.m4a` extension. Exit codes: `0` verified media, `2` acquisition blocked after the bounded attempts, `1` setup/input error. Read the JSON status and report before moving to transcription or rendering. Page titles, thumbnails, HTTP 200 HTML and an MPD without working media do not count as acquired footage.
 
@@ -28,7 +28,9 @@ Wait for the audio-only command to finish before starting the other commands. Tr
 
 ## Supply a concrete route when needed
 
-By default the CLI discovers a bounded set of monitored public HTTPS instances from the current [Invidious registry](https://api.invidious.io/instances.json). `--max-mirrors` and `--max-backends` default to three each. `--max-mirrors 0` disables mirror fallback. Unmonitored network-specific aliases and unavailable instances are excluded even when their URI uses HTTPS. Recent playback successes are tried before unknown playback and known failures. Selection is saved in `source/instance-selection.json`. A live registry and the instances can be unavailable; read their actual attempt results.
+By default the CLI discovers a bounded set of monitored public HTTPS instances from the current [Invidious registry](https://api.invidious.io/instances.json). `--max-mirrors` defaults to five and `--max-backends` to eight. `--max-mirrors 0` disables mirror fallback. Unmonitored network-specific aliases and unavailable instances are excluded even when their URI uses HTTPS. Recent playback successes are tried before unknown playback and known failures. Selection is saved in `source/instance-selection.json`. A live registry and the instances can be unavailable; read their actual attempt results.
+
+For challenged mirror pages, the CLI uses `agent-browser` when installed. It opens an isolated anonymous browser session, waits for the actual player, fetches its advertised backend pages inside that session, and transfers only that session's cookies to the HTTP downloader. A transient challenge runtime error gets one fresh navigation. Backend availability varies: the first player source can fail while a later advertised backend works. Preserve complete source URLs and their query parameters. `--browser off` disables this phase; install agent-browser and its browser when this phase is needed. This does not read an existing personal browser profile.
 
 An explicitly supplied current mirror origin or watch URL replaces registry discovery:
 
@@ -36,7 +38,7 @@ An explicitly supplied current mirror origin or watch URL replaces registry disc
 python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace . --mirror 'CURRENT_MIRROR_OR_WATCH_URL'
 ```
 
-If a mirror watch page works only in the browser, save its HTML and use its actual current URL:
+For diagnosis using an already captured player page, save its HTML and use its actual current URL:
 
 ```bash
 python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace . --mirror 'CURRENT_WATCH_URL' --watch-html source/watch.html

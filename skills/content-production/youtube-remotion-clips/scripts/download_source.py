@@ -14,7 +14,8 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 import av
 import imageio_ffmpeg
 import requests
-from discover_download import discover
+from discover_download import discover, select_audio
+from browser_watch import capture, BrowserError
 from download_ranges import download as download_ranges
 
 
@@ -232,6 +233,19 @@ class Downloader:
                 routes=discover(watch,self.root/f'mirror-{index}/routes.json',
                                 html_path=self.args.watch_html if index==0 else None,
                                 max_backends=self.args.max_backends,session=session,timeout=self.args.timeout)
+                if (not routes['routes'] and getattr(self.args,'browser','auto')!='off'
+                        and any(a.get('result') in {'browser-challenge-or-access-denied','http-access-blocked'} for a in routes['attempts'])):
+                    try:
+                        browser=capture(watch,self.root/f'mirror-{index}',timeout=max(15,self.args.timeout),max_backends=self.args.max_backends)
+                        session.headers['User-Agent']=browser['userAgent']
+                        for cookie in browser['cookies']:
+                            session.cookies.set(cookie['name'],cookie['value'],domain=cookie['domain'],path=cookie.get('path','/'))
+                        routes=discover(browser['url'],self.root/f'mirror-{index}/browser-routes.json',
+                                        html_path=browser['html'],max_backends=self.args.max_backends,
+                                        session=session,timeout=self.args.timeout,page_snapshots=browser['pages'])
+                        self.record('browser-watch','player-discovered',host=parsed.hostname)
+                    except BrowserError as exc:
+                        self.record('browser-watch','unavailable',host=parsed.hostname,reason=str(exc))
                 if not routes['routes']:
                     self.record('mirror','no-verified-route',host=parsed.hostname,report=f'mirror-{index}/routes.json',
                                 failures=routes['attempts'])
@@ -241,7 +255,7 @@ class Downloader:
                     video=[s for s in route['streams'] if s['mimeType'].startswith('video/') and s['height']<=self.args.max_height]
                     if not audio or (not self.args.audio_only and not video):
                         continue
-                    selected_audio=max(audio,key=lambda s:s['bandwidth'])
+                    selected_audio=select_audio(audio)
                     audio_path=self.root/('mirror-audio-'+hashlib.sha256((route['manifestUrl'].split('?')[0]+selected_audio['id']).encode()).hexdigest()[:12]+'.track')
                     if not self.validated('audio'):
                         download_ranges(selected_audio['url'],audio_path,cookies=session.cookies,
@@ -255,7 +269,8 @@ class Downloader:
                         download_ranges(selected_video['url'],video_path,cookies=session.cookies,
                                         resource_key=self.key+':'+selected_video['id'],timeout=self.args.timeout)
                         self.finalize(video_path=video_path,audio_path=audio_path)
-                    self.record('mirror','verified',host=parsed.hostname)
+                    self.record('mirror','verified',host=parsed.hostname,audioRepresentation=selected_audio['id'],
+                                audioLanguage=selected_audio.get('language'),videoRepresentation=selected_video['id'] if not self.args.audio_only else None)
                     return True
             except (requests.RequestException,AcquisitionError,ValueError,av.FFmpegError) as exc:
                 self.record('mirror','failed',host=parsed.hostname,error=type(exc).__name__)
@@ -317,8 +332,9 @@ def main():
     parser.add_argument('--workspace',type=Path,required=True)
     parser.add_argument('--audio-only',action='store_true')
     parser.add_argument('--max-height',type=int,default=1080)
-    parser.add_argument('--max-mirrors',type=int,default=3)
-    parser.add_argument('--max-backends',type=int,default=3)
+    parser.add_argument('--max-mirrors',type=int,default=5)
+    parser.add_argument('--max-backends',type=int,default=8)
+    parser.add_argument('--browser',choices=['auto','off'],default='auto',help='Use an isolated agent-browser session for mirror challenges when available')
     parser.add_argument('--timeout',type=int,default=20)
     parser.add_argument('--mirror',action='append',help='Explicit mirror origin or current watch URL; replaces registry discovery')
     parser.add_argument('--watch-html',type=Path,help='Saved browser HTML for the first explicitly provided mirror')

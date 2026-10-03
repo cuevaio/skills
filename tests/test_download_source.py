@@ -145,6 +145,39 @@ class Acquisition(unittest.TestCase):
             report=json.loads((Path(temp)/'source/instance-selection.json').read_text())
             self.assertEqual(len(report['skipped']),3)
 
+    def test_browser_backend_handoff_downloads_original_audio(self):
+        payload=self.fixture.read_bytes()
+        seen=[]
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                seen.append(self.path)
+                if self.path=='/signed.mpd?issued=now':
+                    self.send_response(200);self.end_headers()
+                    self.wfile.write(b'<MPD><Period><AdaptationSet mimeType="audio/mp4" lang="ar"><Role value="dub"/><Representation id="dub" bandwidth="200000"><BaseURL>/dub</BaseURL></Representation></AdaptationSet><AdaptationSet mimeType="audio/mp4" lang="en"><Role value="main"/><Representation id="original" bandwidth="128000"><BaseURL>/media</BaseURL></Representation></AdaptationSet><AdaptationSet mimeType="video/mp4"><Representation id="picture" height="180"><BaseURL>/media</BaseURL></Representation></AdaptationSet></Period></MPD>')
+                elif self.path=='/media' and 'browser=own-session' in self.headers.get('Cookie',''):
+                    start,end=map(int,self.headers['Range'].removeprefix('bytes=').split('-'))
+                    end=min(end,len(payload)-1)
+                    self.send_response(206);self.send_header('Content-Range',f'bytes {start}-{end}/{len(payload)}')
+                    self.end_headers();self.wfile.write(payload[start:end+1])
+                else:
+                    self.send_response(418);self.end_headers()
+            def log_message(self,*_):
+                pass
+        with serving(Handler) as origin,tempfile.TemporaryDirectory() as temp:
+            html=Path(temp)/'watch.html'
+            html.write_text(''.join(f'<a href="/switchbackend?companion_id={i}">backend</a>' for i in range(8)))
+            pages={origin+f'/switchbackend?companion_id={i}':dict(url=origin+f'/switchbackend?companion_id={i}',status=200,html='<source src="/signed.mpd?issued=now">' if i==4 else 'unavailable') for i in range(8)}
+            browser=dict(html=html,url=origin+'/watch?v=abcdefghijk',userAgent='test-browser',pages=pages,
+                         cookies=[dict(name='browser',value='own-session',domain='127.0.0.1',path='/')])
+            downloader=cli.Downloader(self.args('https://youtube.com/watch?v=abcdefghijk',temp,mirror=[origin],max_backends=8))
+            with patch.object(downloader,'ytdlp',side_effect=cli.AcquisitionError('access-blocked')),patch.object(cli,'capture',return_value=browser):
+                self.assertEqual(downloader.run(),0)
+            self.assertTrue(cli.inspect_media(Path(temp)/'source/video.mp4')['audio'])
+            self.assertEqual(downloader.report['status'],'ready')
+            self.assertEqual(downloader.report['attempts'][-1]['audioRepresentation'],'original')
+            self.assertEqual(downloader.report['attempts'][-1]['audioLanguage'],'en')
+            self.assertNotIn('/dub',seen)
+
     def test_setup_error_does_not_try_mirrors(self):
         with tempfile.TemporaryDirectory() as temp:
             downloader=cli.Downloader(self.args('https://youtube.com/watch?v=abcdefghijk',temp))
