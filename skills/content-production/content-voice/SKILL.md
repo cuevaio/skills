@@ -13,6 +13,10 @@ Choose the mode:
 - **Correct:** an explicit creator correction changes one or more rules.
 - **Recalibrate:** the corpus, audience, or platform use changed enough to retest the profile.
 
+## Creator defaults
+
+For this creator, read [the saved style and approved examples](references/creator-style.md). These defaults remain available across projects. A local `CONTENT_STYLE.md` adds project-specific context; current explicit instructions override both. The creator requested these preferences and examples be stored in the skills. When updating them, keep general voice choices separate from source-specific claims and names.
+
 ## 1. Locate The Profile And Evidence
 
 Search the active private workspace for `CONTENT_STYLE.md`. If it exists, treat it as the current source of truth and identify the section affected by the request.
@@ -44,7 +48,7 @@ Use [the profile template](references/content-style-template.md). Every rule nee
 
 The active profile must expose, inline and easy to scan: status/evidence, core point of view, voice invariants, platform adaptations with calibration status, preferred structures, formatting, anti-patterns, approved examples, and correction log.
 
-Store the actual profile in the private content workspace, never in a public skills repository unless the creator explicitly requests it.
+Store production-specific profiles in the private content workspace. This collection includes Anthony's explicitly requested shared defaults and approved examples; use them for his content, and let another creator's own profile override them.
 
 ## 4. Calibrate
 

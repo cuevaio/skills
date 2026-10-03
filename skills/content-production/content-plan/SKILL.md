@@ -7,6 +7,10 @@ description: Turn an idea, goal, source, product update, or loose topic into a p
 
 Plan the smallest piece that delivers one useful change for one audience. Read `CONTENT_STYLE.md` when available so the angle belongs to the creator rather than to generic content advice.
 
+## Creator defaults
+
+For this creator, read [the saved creator style](../content-voice/references/creator-style.md) alongside the local profile. A useful idea or personal recommendation can be the entire job; do not force a sales angle, engagement question or formal lesson into it. Keep source-specific experiences separate from the creator's own claims.
+
 ## 1. Define The Job
 
 Inspect supplied source material before asking questions. Extract known decisions and propose the missing ones:
@@ -22,7 +26,7 @@ Inspect supplied source material before asking questions. Extract known decision
 
 Write the promise as: “This helps [audience] go from [starting state] to [outcome] by [point of view or method].”
 
-Point of view, business job, canonical format, destination, and CTA belong to the creator. Infer them only as clearly labelled proposals from existing evidence; obtain creator confirmation before the brief passes. The job is clear when candidate ideas can be rejected for failing to serve it.
+Point of view, business job, canonical format, destination, and CTA belong to the creator. Infer them only as clearly labelled proposals from existing evidence; treat explicit choices and delegated editorial judgment in the current request as authorization. Ask only when a material decision remains unresolved; a provisional brief can support reversible work. The job is clear when candidate ideas can be rejected for failing to serve it.
 
 ## 2. Expand, Then Contract
 
@@ -107,4 +111,4 @@ Do not plan every platform at once by default. Name the canonical source, then l
 - Deadline and owner:
 ```
 
-The planning gate passes when the creator has approved one audience, one promise, one point of view, one canonical format, destination, CTA, and visible proof. Every planned derivative must have a stated job rather than existing to fill a channel. Without approval, return a `proposed brief` and identify the decisions awaiting confirmation.
+The planning gate passes when the creator has approved one audience, one promise, one point of view, one canonical format, destination, CTA, and visible proof. Every planned derivative must have a stated job rather than existing to fill a channel. Carry forward approval or delegated choices already present in the request. Otherwise label the brief `proposed` and identify unresolved decisions without blocking independent reversible work.

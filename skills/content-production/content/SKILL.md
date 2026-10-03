@@ -13,16 +13,19 @@ Move the production through artifact gates. Load and follow the matching phase s
 | Current state or request | Load | Gate reached |
 | --- | --- | --- |
 | “Write in my style,” style examples, or voice corrections | `content-voice` | A creator-approved style profile exists |
-| An idea, goal, source, or loose topic | `content-plan` | A production-ready content brief exists |
+| An idea, goal, or loose topic | `content-plan` | A production-ready content brief exists |
 | A brief with claims or examples that need evidence | `content-research` | A cited research pack exists |
 | A brief or research pack that needs delivery language | `content-script` | The chosen script or outline exists |
 | A script but no proven capture environment | `video-setup` | A playback test passes |
 | A tested setup and material ready to perform | `video-record` | Preferred takes are verified |
+| A YouTube URL or local recording to turn into finished subtitled Remotion clips | `youtube-remotion-clips` with `content-repurpose` for selection | Verified clips, SRTs, covers and provenance exist |
 | Raw footage, review notes, or a rough timeline | `video-edit` | A vertical or horizontal master is approved |
 | A `.screenstudio` project or Screen Studio implementation problem | `screenstudio-edit` | The edit or reconstruction passes QC |
 | A canonical source that should become clips or posts | `content-repurpose` | Derivative candidates are traceable and approved |
-| A source that needs X, LinkedIn, or Instagram copy | `social-post` | Native platform packages are approved |
+| A source or finished clip that needs X, LinkedIn, or Instagram copy | `social-post` | Native platform packages are approved |
 | A finished master or approved platform package | `content-publish` | The publication works and its URL is recorded |
+
+For a clips-and-copy request, continue from `youtube-remotion-clips` to `social-post`, then `content-publish` in prepare mode. Skip scripting and recording when the source already exists. A generic existing-source request begins with `content-repurpose`; use the Remotion adapter when rendered clips are requested.
 
 If the user names a phase or already has its input artifact, start there. Use `CONTENT_STYLE.md` whenever it exists. Ask only for missing facts that cannot be discovered and that block the next gate.
 
@@ -42,3 +45,7 @@ Derivatives point back to their canonical source ID. Platform copies are variant
 Optimize for **useful and native**: one clear idea, expressed in the creator's voice, shaped for how the audience consumes it on that platform. Automate legwork while keeping point of view, personal claims, and final approval with the creator.
 
 At every gate, report what is complete, decisions carried forward, unresolved risks, and the exact artifact ready for the next phase.
+
+## Scope and authorization
+
+Carry forward decisions and permissions already given by the creator. Complete requested reversible work across phase boundaries without asking for the same approval again. Proposed angles and unreviewed drafts can remain provisional while production proceeds within the authorized scope. Creating exports or approving copy does not authorize a public post.

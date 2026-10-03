@@ -15,6 +15,10 @@ Choose the requested mode before acting:
 
 Perform reversible export and verification work directly when tools permit it. Public posting, scheduling, visibility changes, and notifications require explicit creator approval immediately before the action unless the user already approved that exact package, account, destination, and timing in the current request. Otherwise, give one focused human action and inspect the result.
 
+## Creator defaults
+
+For this creator's titles and social captions, read [the saved creator style](../content-voice/references/creator-style.md) alongside the local profile. Preserve the approved natural source context, lowercase copy and relevant instagram hashtags. Use the approved copy instead of reintroducing a mechanical attribution footer in the composer. Video subtitles follow the video preset, not the social-copy casing rule.
+
 ## 1. Protect The Production
 
 Confirm independent copies of canonical sources, project files, research, script, assets, captions, masters, platform packages, and style profile as appropriate. Preserve enough project and source state to revise time-sensitive claims later.

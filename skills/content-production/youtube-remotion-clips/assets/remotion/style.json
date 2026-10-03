@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "font": {
+    "family": "Space Grotesk",
+    "file": "SpaceGrotesk-Variable.ttf"
+  },
+  "captions": {
+    "fontSize": 64,
+    "fontWeight": 620,
+    "lineHeight": 1.08,
+    "letterSpacing": -2.2,
+    "color": "#ffffff",
+    "background": "rgba(0,0,0,0.76)",
+    "bottom": 320,
+    "left": 65,
+    "right": 65,
+    "padding": "19px 30px 23px",
+    "borderRadius": 18,
+    "maxWidth": 950,
+    "highlightActiveWord": true
+  },
+  "accentPalette": [
+    "#9fe7d0",
+    "#efc48a",
+    "#a9d5ff",
+    "#c5b9ff",
+    "#b9caff"
+  ],
+  "editing": {
+    "speed": 1.15,
+    "silenceDb": -35,
+    "minimumSilenceSeconds": 0.3,
+    "handleSeconds": 0.06,
+    "punchScale": 1.1,
+    "longShotReframeSeconds": 3.5
+  },
+  "visuals": {
+    "splitY": 960,
+    "fullHoldExampleSeconds": [
+      4,
+      4.5
+    ],
+    "splitHoldExampleSeconds": [
+      4,
+      13
+    ],
+    "pushScale": 0.035,
+    "fit": "cover"
+  },
+  "cover": {
+    "frames": 1,
+    "fontSize": 84,
+    "fontWeight": 700,
+    "lineHeight": 1.06,
+    "letterSpacing": -2.5,
+    "background": "rgba(0,0,0,0.86)",
+    "padding": "30px 38px 35px",
+    "borderRadius": 18
+  },
+  "openingSound": {
+    "enabled": true,
+    "asset": "sfx/opening-swipe.wav",
+    "durationFrames": 19,
+    "rmsRatioToSpeech": 0.4,
+    "maximumGain": 0.3
+  }
+}

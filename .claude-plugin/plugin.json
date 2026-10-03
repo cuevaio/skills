@@ -1,6 +1,6 @@
 {
   "name": "content-production",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Plan, research, script, record, edit, repurpose, write, and publish content in a consistent creator voice.",
   "author": {
     "name": "cuevaio",
@@ -19,7 +19,11 @@
     "editing",
     "social-media",
     "writing",
-    "publishing"
+    "publishing",
+    "youtube",
+    "remotion",
+    "whisper",
+    "clips"
   ],
   "skills": [
     "./skills/content-production/content",
@@ -33,6 +37,7 @@
     "./skills/content-production/screenstudio-edit",
     "./skills/content-production/content-repurpose",
     "./skills/content-production/social-post",
-    "./skills/content-production/content-publish"
+    "./skills/content-production/content-publish",
+    "./skills/content-production/youtube-remotion-clips"
   ]
 }

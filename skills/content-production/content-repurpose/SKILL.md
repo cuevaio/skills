@@ -7,6 +7,10 @@ description: Turn a canonical video, transcript, article, recording, or launch i
 
 Repurposing is adaptation, not duplication. Every derivative needs its own complete audience job while remaining traceable to the canonical source.
 
+## Creator defaults
+
+For this creator, read [the saved creator style](../content-voice/references/creator-style.md). Each clip should carry a complete useful idea; accompanying copy can recommend the source and share a supported personal takeaway. Preserve the original speaker's ownership of anecdotes and results. For the usual short-video treatment, use [youtube-remotion-clips](../youtube-remotion-clips/SKILL.md).
+
 ## 1. Establish The Source Of Truth
 
 Identify the canonical artifact, its brief, research pack, transcript or timeline, publication status, and `CONTENT_STYLE.md`. Record source timestamps, sections, or claim IDs so derivatives can be verified later.

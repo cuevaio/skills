@@ -7,6 +7,10 @@ description: Build a source-backed research pack for content. Use when a brief n
 
 Research to support a point of view, not to replace one. Start from the content brief when available.
 
+## Creator defaults
+
+When preparing this creator's content, read [the saved creator style](../content-voice/references/creator-style.md) for framing and source attribution. Keep factual interview claims, the speaker's personal experiences, and the creator's explicitly reported learning separate in the handoff. Research should support the useful takeaway without inflating it.
+
 ## 1. Turn The Brief Into Questions
 
 List the minimum questions whose answers could change the script:

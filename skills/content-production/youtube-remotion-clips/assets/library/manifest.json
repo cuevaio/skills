@@ -1,0 +1,120 @@
+{
+  "images": [
+    {
+      "id": "trust",
+      "path": "assets/library/images/trust.png",
+      "sha256": "dc0922fcad570202e77b7a597192b6f4b2dd61000e36c9011516725aaecf6892",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "tags": [
+        "intent",
+        "vision",
+        "human-agent collaboration",
+        "trust"
+      ],
+      "description": "Human climbs floating steps toward a robot.",
+      "provenance": "AI-generated conceptual illustration from the approved Poteto clip task",
+      "defaultTallFocalPoint": "20% 50%"
+    },
+    {
+      "id": "kitchen",
+      "path": "assets/library/images/kitchen.png",
+      "sha256": "3f0825c8b436019333f3407eeda05549be4cf3558d8921af12934498129ef41f",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "tags": [
+        "chef",
+        "kitchen",
+        "human responsibility",
+        "agent orchestration"
+      ],
+      "description": "Chef coordinates robot sous-chefs.",
+      "provenance": "AI-generated conceptual illustration from the approved Poteto clip task",
+      "defaultTallFocalPoint": "48% 50%"
+    },
+    {
+      "id": "verification",
+      "path": "assets/library/images/verification.png",
+      "sha256": "4a16a1713de9d7eb06ef203cd7d775734e015efec241e0d3a660702db79b51d1",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "tags": [
+        "verification",
+        "tests",
+        "quality gates",
+        "agent tools"
+      ],
+      "description": "Robot passes through a test gate with checkmarks.",
+      "provenance": "AI-generated conceptual illustration from the approved Poteto clip task",
+      "defaultTallFocalPoint": "50% 50%"
+    },
+    {
+      "id": "team",
+      "path": "assets/library/images/team.png",
+      "sha256": "dc16090d8f7c38f217c05362d54e16c637776365f0184d8472a3c38925e82a2d",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "tags": [
+        "coordinator",
+        "delegation",
+        "parallel agents",
+        "teamwork"
+      ],
+      "description": "Coordinator robot supervises a team.",
+      "provenance": "AI-generated conceptual illustration from the approved Poteto clip task",
+      "defaultTallFocalPoint": "50% 50%"
+    },
+    {
+      "id": "sleep",
+      "path": "assets/library/images/sleep.png",
+      "sha256": "aaab833eba371330b77079f2537345528cd348521ca91104cf15454ebf187656",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "tags": [
+        "autonomy",
+        "overnight work",
+        "trust",
+        "sleep"
+      ],
+      "description": "Sleeping engineer while robots work in the background.",
+      "provenance": "AI-generated conceptual illustration from the approved Poteto clip task",
+      "defaultTallFocalPoint": "12% 50%"
+    }
+  ],
+  "font": {
+    "path": "assets/remotion/public/SpaceGrotesk-Variable.ttf",
+    "sha256": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+    "license": "assets/remotion/public/SpaceGrotesk-LICENSE.txt",
+    "source": "https://github.com/floriankarsten/space-grotesk"
+  },
+  "privateSound": {
+    "path": "~/.cache/clip-production/sfx/mixkit-2627/opening-swipe.wav",
+    "sha256": "cf121dfa7b20bafcd8532c182376213c98bcc3d415f5897c02888f87015556b4",
+    "sourcePath": "~/.cache/clip-production/sfx/mixkit-2627/mixkit-fast-swipe-zoom-2627.wav",
+    "licensePath": "~/.cache/clip-production/sfx/mixkit-2627/mixkit-license.html",
+    "sourceUrl": "https://assets.mixkit.co/active_storage/sfx/2627/2627.wav",
+    "sourcePage": "https://mixkit.co/free-sound-effects/woosh/",
+    "licenseUrl": "https://mixkit.co/license/#sfxFree",
+    "use": "Private reuse in finished videos; exclude standalone sound from shared skill, template and source packages"
+  },
+  "runtime": {
+    "nodeModules": "~/.cache/clip-production/runtime/remotion-4.0.532/node_modules",
+    "packageLock": "~/.cache/clip-production/runtime/remotion-4.0.532/package-lock.json",
+    "python": null,
+    "whisperCache": "~/.cache/huggingface/hub",
+    "cachedModels": [
+      "Systran/faster-whisper-small.en",
+      "Systran/faster-whisper-medium.en"
+    ]
+  }
+}
