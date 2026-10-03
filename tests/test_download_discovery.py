@@ -61,6 +61,25 @@ class DownloadDiscovery(unittest.TestCase):
         finally:
             server.shutdown(); server.server_close(); thread.join()
 
+    def test_watch_challenges_record_status_and_reason(self):
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(418 if self.path=='/denied' else 200);self.end_headers()
+                self.wfile.write(b"<html><title>Making sure you're not a bot!</title></html>")
+            def log_message(self,*_):
+                pass
+        server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+        try:
+            with tempfile.TemporaryDirectory() as temp:
+                for path,status in [('/denied',418),('/challenge',200)]:
+                    report=module.discover(f'http://127.0.0.1:{server.server_port}'+path,Path(temp)/'routes.json')
+                    self.assertFalse(report['routes'])
+                    self.assertEqual(report['attempts'][0]['status'],status)
+                    self.assertEqual(report['attempts'][0]['result'],'browser-challenge-or-access-denied')
+        finally:
+            server.shutdown();server.server_close();thread.join()
+
     def test_http_200_html_is_not_a_verified_manifest(self):
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):

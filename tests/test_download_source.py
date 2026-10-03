@@ -125,6 +125,26 @@ class Acquisition(unittest.TestCase):
             self.assertIn('/current-manifest?signature=issued',seen)
             self.assertFalse(any('/companion/' in path for path in seen))
 
+    def test_registry_excludes_unmonitored_mesh_aliases_and_prioritizes_playback(self):
+        listing=[
+            ['aaa.mesh.example',dict(type='https',uri='https://aaa.mesh.example',stats=None,monitor=None)],
+            ['aaa.ygg',dict(type='https',uri='https://aaa.ygg',stats=None,monitor=None)],
+            ['blocked.example',dict(type='https',uri='https://blocked.example',stats={'playback':{'ratio':0}},monitor={'down':False,'uptime':100})],
+            ['working.example',dict(type='https',uri='https://working.example',stats={'playback':{'ratio':1}},monitor={'down':False,'uptime':90})],
+            ['unknown.example',dict(type='https',uri='https://unknown.example',stats=None,monitor={'down':False,'uptime':99})],
+            ['offline.example',dict(type='https',uri='https://offline.example',stats={'playback':{'ratio':1}},monitor={'down':True})],
+        ]
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200);self.end_headers();self.wfile.write(json.dumps(listing).encode())
+            def log_message(self,*_):
+                pass
+        with serving(Handler) as origin,tempfile.TemporaryDirectory() as temp:
+            downloader=cli.Downloader(self.args('https://youtube.com/watch?v=abcdefghijk',temp,instances_url=origin,max_mirrors=3))
+            self.assertEqual(downloader.mirror_urls(),['https://working.example','https://unknown.example','https://blocked.example'])
+            report=json.loads((Path(temp)/'source/instance-selection.json').read_text())
+            self.assertEqual(len(report['skipped']),3)
+
     def test_setup_error_does_not_try_mirrors(self):
         with tempfile.TemporaryDirectory() as temp:
             downloader=cli.Downloader(self.args('https://youtube.com/watch?v=abcdefghijk',temp))
@@ -140,7 +160,7 @@ class Acquisition(unittest.TestCase):
                 self.assertEqual(downloader.run(),2)
             report=json.loads((Path(temp)/'source/acquisition.json').read_text())
             self.assertEqual(report['status'],'blocked')
-            self.assertIn('accessible source',report['nextAction'])
+            self.assertIn('working network route',report['nextAction'])
             self.assertFalse((Path(temp)/'source/video.mp4').exists())
 
     def test_range_resume_reuses_checked_parts_and_rejects_wrong_response(self):

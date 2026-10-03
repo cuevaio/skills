@@ -7,6 +7,9 @@ import re
 import shutil
 import subprocess
 import sys
+
+# The installed skill directory is shared; keep runtime bytecode out of its bundle.
+sys.dont_write_bytecode = True
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 import av
 import imageio_ffmpeg
@@ -192,12 +195,25 @@ class Downloader:
         response=requests.get(self.args.instances_url,timeout=self.args.timeout)
         response.raise_for_status()
         listing=response.json()
-        hosts=[]
+        candidates=[]
+        skipped=[]
         for host,settings in listing:
+            monitor=settings.get('monitor') or {}
             url=settings.get('uri','https://'+host)
-            if urlsplit(url).scheme=='https' and url not in hosts:
-                hosts.append(url)
-        return sorted(hosts)[:self.args.max_mirrors]
+            if (settings.get('type')!='https' or urlsplit(url).scheme!='https'
+                    or not monitor or monitor.get('down') or monitor.get('enabled') is False):
+                skipped.append(dict(host=host,reason='not a monitored available public HTTPS instance'))
+                continue
+            playback=(settings.get('stats') or {}).get('playback') or {}
+            ratio=playback.get('ratio')
+            # Prefer recent playback success, then unknown playback, then known failures.
+            group=2 if ratio is not None and ratio>0 else (1 if ratio is None else 0)
+            candidates.append((group,ratio or 0,monitor.get('uptime') or 0,url))
+        candidates.sort(key=lambda item:(-item[0],-item[1],-item[2],item[3]))
+        hosts=list(dict.fromkeys(item[3] for item in candidates))
+        selected=hosts[:self.args.max_mirrors]
+        write_json(self.root/'instance-selection.json',dict(selected=selected,eligible=hosts,skipped=skipped))
+        return selected
 
     def mirrors(self):
         if not self.video_id or not self.args.max_mirrors:
@@ -217,7 +233,8 @@ class Downloader:
                                 html_path=self.args.watch_html if index==0 else None,
                                 max_backends=self.args.max_backends,session=session,timeout=self.args.timeout)
                 if not routes['routes']:
-                    self.record('mirror','no-verified-route',host=parsed.hostname,report=f'mirror-{index}/routes.json')
+                    self.record('mirror','no-verified-route',host=parsed.hostname,report=f'mirror-{index}/routes.json',
+                                failures=routes['attempts'])
                     continue
                 for route in routes['routes']:
                     audio=[s for s in route['streams'] if s['mimeType'].startswith('audio/')]
@@ -276,7 +293,7 @@ class Downloader:
                     self.record('direct','failed',error=type(exc).__name__)
                     if not self.mirrors():
                         self.report['status']='blocked'
-                        self.report['nextAction']='Read attempt logs; supply an accessible source or explicitly provided authentication/route.'
+                        self.report['nextAction']='Inspect the recorded HTTP/player failures and confirm browser playback for the reported public hosts. If playback is also denied, acquisition needs a working network route, explicitly supplied authentication, or a local source file.'
                         write_json(self.report_path,self.report)
                         print(json.dumps(dict(status='blocked',report=str(self.report_path),nextAction=self.report['nextAction'])),flush=True)
                         return 2
