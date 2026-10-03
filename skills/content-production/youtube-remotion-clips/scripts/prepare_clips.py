@@ -43,6 +43,9 @@ def main():
                             "-preset", "fast", "-crf", "18", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
                             "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(output)], check=True)
         refined = Path("transcript") / clip["id"] / "transcript.json"
+        reviewed = refined.with_name("reviewed.json")
+        if reviewed.exists():
+            refined = reviewed
         if refined.exists():
             local = json.loads(refined.read_text())
             clip_words = [word for segment in local["segments"] for word in segment["words"]]
@@ -54,7 +57,30 @@ def main():
                   "end": min(end - start, w["end"] - offset)} for w in clip_words]
         for word in words:
             word["word"] = clip.get("corrections", {}).get(word["word"].strip(), word["word"])
-        words = [word for word in words if word["word"].strip() and word["end"] > word["start"]]
+        words = [word for word in words if word["word"].strip()]
+        # Whisper sometimes gives a spoken word zero duration; retain it using a
+        # small share of the following word's interval rather than dropping it.
+        for i, word in enumerate(words):
+            if word["end"] > word["start"]:
+                continue
+            if i + 1 < len(words) and words[i + 1]["end"] > word["start"]:
+                following = words[i + 1]
+                word["end"] = min(word["start"] + .04, following["end"] - .01)
+                following["start"] = max(following["start"], word["end"])
+            elif i and words[i - 1]["end"] - words[i - 1]["start"] > .06:
+                word["end"] = word["start"]
+                word["start"] = max(words[i - 1]["start"] + .01, word["start"] - .04)
+                words[i - 1]["end"] = min(words[i - 1]["end"], word["start"])
+        words = [word for word in words if word["end"] > word["start"]]
+        merged = []
+        for word in words:
+            if merged and (word["word"].startswith("-")
+                           or (word["word"].startswith(".") and word["word"].strip()[1:].isdigit())):
+                merged[-1]["word"] += word["word"].strip()
+                merged[-1]["end"] = word["end"]
+            else:
+                merged.append(word)
+        words = merged
         clip["captions"] = groups(words)
         with (Path("clips") / (clip["id"] + ".srt")).open("w") as srt:
             for index, group in enumerate(clip["captions"], 1):
