@@ -14,7 +14,7 @@ Choose the mode:
 
 ## Creator defaults
 
-For this creator, all clips, reels and shorts use [the saved creator style](../content-voice/references/creator-style.md) and [youtube-remotion-clips](../youtube-remotion-clips/SKILL.md) by default, independent of source origin. The creator need not name the style, Poteto or Remotion. Use the preset automatically when no different treatment is explicitly requested, including when the local style profile is absent. If another editor is explicitly requested, carry the same typography, caption placement and highlighting, tight cuts, sustained images, split cover and opening swipe into that editor. Adapt the camera region to actual source footage when no speaker camera exists. Keep sustained images relevant to the explanation and preserve complete ideas through tight cuts.
+For this creator, all clips, reels and shorts use [the saved creator style](../content-voice/references/creator-style.md) and [youtube-remotion-clips](../youtube-remotion-clips/SKILL.md) by default, independent of source origin. The creator need not name the style or Remotion. Use the preset automatically when no different treatment is explicitly requested, including when the local style profile is absent. If another editor is explicitly requested, carry the same typography, caption placement and highlighting, tight cuts, sustained images, split cover and opening swipe into that editor. Adapt the camera region to actual source footage when no speaker camera exists. Keep sustained images relevant to the explanation and preserve complete ideas through tight cuts.
 
 ## 1. Protect And Organize
 

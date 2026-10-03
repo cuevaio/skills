@@ -10,7 +10,7 @@ This is the rendering adapter in the content-production collection, alongside `s
 
 ## Default for every clip request
 
-Apply this collection's approved clip preset automatically whenever the creator asks for clips, reels or shorts. A request such as "create 5 clips from this YouTube video" is sufficient: download, transcribe, select five complete ideas, generate relevant images, render and verify the finished clips in the saved style. Do not ask which style to use or require the creator to mention Poteto, a previous project, "my usual style", Remotion or this skill.
+Apply this collection's approved clip preset automatically whenever the creator asks for clips, reels or shorts. A request such as "create 5 clips from this YouTube video" is sufficient: download, transcribe, select five complete ideas, generate relevant images, render and verify the finished clips in the saved style. Do not ask which style to use or require the creator to mention a previous project, "my usual style", Remotion or this skill.
 
 The visual style is a permanent creator preference, independent of source origin, speaker, subject and language. It applies to YouTube interviews, other hosted videos, local recordings, podcasts and screen recordings. Adapt source acquisition, transcription language, speaker crops and illustrative content to the new recording while retaining the preset. Source-specific interview names, timestamps, images and personal claims are not defaults.
 
@@ -44,7 +44,7 @@ The CLI detects language unless `--language` is supplied. Choose a multilingual 
 
 ## Select and assemble
 
-Read the transcript and choose complete, distinct ideas. `content-repurpose` owns the candidate ledger: source range, central idea, supporting explanation and selection reason. Write the chosen clips into `edit-plan.json`; inspect the current source to set portrait and wide-camera crops. Do not infer camera side from this interview's example.
+Read the transcript and choose complete, distinct ideas. `content-repurpose` owns the candidate ledger: source range, central idea, supporting explanation and selection reason. Write the chosen clips into `edit-plan.json`; inspect the current source to set portrait and wide-camera crops. Choose camera crops from the current recording.
 
 Read [the production contract](references/production-contract.md) for fields, commands and handoffs. Run from the production workspace:
 
@@ -62,11 +62,11 @@ node render.mjs
 
 Use one frame-aligned retained-segment timeline for video, audio, captions and visual beats. Inspect preview crops, captions, image focal points, covers and endings before full exports. The split camera is muted; continuous audio comes from the tightened source. Load local fonts with Remotion's rendering delay. Keep runtime symlinks immutable and copy media into `public/`.
 
-Read [timing and crop lessons](references/full-camera-style.md) and [sustained visual lessons](references/sustained-visuals.md) when adjusting those parts. Historical audio-only revision helpers are [examples](references/examples/add_opening_sound.py), not the normal render path. Do not mix the swipe again into an export already rendered with it.
+Read [timing and crop guidance](references/full-camera-style.md) and [sustained visual guidance](references/sustained-visuals.md) when adjusting those parts. Do not mix the swipe again into an export already rendered with it.
 
 ## Verify and hand off
 
-Check encoded MP4s, not just the editor. Run `scripts/verify_exports.py`, inspect playback at phone size, and compare the first encoded frame to its cover PNG. Check pause removal, completed speech, active word highlighting, full/split holds, caption safety, voice level and opening sound. Automated checks do not replace listening or factual review; record which actually ran. Historical regression checks are available under `references/examples/` and require their original prior-version artifacts.
+Check encoded MP4s, not just the editor. Run `scripts/verify_exports.py`, inspect playback at phone size, and compare the first encoded frame to its cover PNG. Check pause removal, completed speech, active word highlighting, full/split holds, caption safety, voice level and opening sound. Automated checks do not replace listening or factual review; record which actually ran.
 
 Use `scripts/create_review.py` for an offline review page and `scripts/package_revision.py` for the current clip count. Preserve editable metadata, raw transcripts, source ranges, provenance, MP4s, SRTs and covers. Exclude standalone licensed sound, source recordings, runtime packages and model weights from delivery bundles.
 
