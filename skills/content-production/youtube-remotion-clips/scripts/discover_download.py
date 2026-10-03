@@ -32,7 +32,9 @@ def representations(root, base):
         if local:
             current = urljoin(current, local.strip())
         if node.tag.split('}')[-1] == 'Representation' and local:
-            found.append(dict(id=node.attrib.get('id'), mimeType=mime, url=current))
+            found.append(dict(id=node.attrib.get('id'), mimeType=mime, url=current,
+                              height=int(node.attrib.get('height',0)),
+                              bandwidth=int(node.attrib.get('bandwidth',0))))
         for child in node:
             walk(child, current, mime)
 
@@ -40,9 +42,9 @@ def representations(root, base):
     return found
 
 
-def discover(watch_url, output, html_path=None, max_backends=3):
+def discover(watch_url, output, html_path=None, max_backends=3, session=None, timeout=15):
     output.parent.mkdir(parents=True, exist_ok=True)
-    session = requests.Session()
+    session = session or requests.Session()
     attempts, valid, visited = [], [], set()
     pages = [watch_url]
     for index in range(max_backends+1):
@@ -53,7 +55,7 @@ def discover(watch_url, output, html_path=None, max_backends=3):
             if index == 0 and html_path:
                 html, resolved = html_path.read_text(), page_url
             else:
-                page = session.get(page_url, timeout=15)
+                page = session.get(page_url, timeout=timeout)
                 page.raise_for_status()
                 html, resolved = page.text, page.url
             parser = WatchPage()
@@ -71,7 +73,7 @@ def discover(watch_url, output, html_path=None, max_backends=3):
                     continue
                 visited.add(url)
                 try:
-                    response = session.get(url, timeout=15)
+                    response = session.get(url, timeout=timeout)
                     response.raise_for_status()
                     root = ET.fromstring(response.content)
                     if root.tag.split('}')[-1] != 'MPD':
@@ -85,7 +87,7 @@ def discover(watch_url, output, html_path=None, max_backends=3):
                         if not stream:
                             continue
                         with session.get(stream['url'], headers={'Range':'bytes=0-1023'},
-                                         timeout=15, stream=True) as media:
+                                         timeout=timeout, stream=True) as media:
                             content_type = media.headers.get('Content-Type','').lower()
                             body = next(media.iter_content(1024), b'')
                             success = (media.status_code == 206 and len(body) == 1024
@@ -97,6 +99,7 @@ def discover(watch_url, output, html_path=None, max_backends=3):
                         raise ValueError('Media range probe failed')
                     path = output.parent/f'download-manifest-{len(valid)}.mpd'
                     path.write_bytes(response.content)
+                    path.chmod(0o600)
                     valid.append(dict(manifestUrl=response.url, manifest=str(path),
                                       streams=streams, probes=probes))
                 except (requests.RequestException, ET.ParseError, ValueError) as exc:
@@ -110,6 +113,7 @@ def discover(watch_url, output, html_path=None, max_backends=3):
     # Signed URLs stay in this private production file; stdout prints no tokens.
     report = dict(routes=valid, attempts=attempts)
     output.write_text(json.dumps(report, indent=2)+'\n')
+    output.chmod(0o600)
     return report
 
 
