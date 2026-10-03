@@ -1,6 +1,6 @@
 ---
 name: youtube-remotion-clips
-description: Download YouTube or use local recordings, transcribe with Whisper, and produce subtitled Remotion clips with tight camera cuts, sustained images, first-frame covers and a brief opening swipe. Use for rendered clip production or revisions; content-repurpose owns source selection and social-post owns accompanying copy.
+description: Create clips, reels or shorts from any YouTube URL or recording in the creator's default style automatically. Use for requests like "create 5 clips from this video" without requiring a style reference or a Remotion mention. Download with yt-dlp, transcribe with Whisper, and render tight camera cuts, highlighted captions, fresh images, split covers and an opening swipe.
 compatibility: Requires Python, Node.js, FFmpeg and a Remotion-compatible browser. Downloads, uncached Whisper models and new images may require network access.
 ---
 
@@ -8,9 +8,17 @@ compatibility: Requires Python, Node.js, FFmpeg and a Remotion-compatible browse
 
 This is the rendering adapter in the content-production collection, alongside `screenstudio-edit`. Keep tool-specific acquisition, timing, layout and exports here. Use `content-repurpose` for selecting complete source ideas, `video-edit` for editorial judgment, `social-post` for platform copy, and `content-publish` for delivery checks or authorized publication. Read sibling skills only when their phase is needed; if a dependency is not installed, follow the handoff below and report the missing capability instead of assuming it exists.
 
+## Default for every clip request
+
+Apply this collection's approved clip preset automatically whenever the creator asks for clips, reels or shorts. A request such as "create 5 clips from this YouTube video" is sufficient: download, transcribe, select five complete ideas, generate relevant images, render and verify the finished clips in the saved style. Do not ask which style to use or require the creator to mention Poteto, a previous project, "my usual style", Remotion or this skill.
+
+The visual style is a permanent creator preference, independent of source origin, speaker, subject and language. It applies to YouTube interviews, other hosted videos, local recordings, podcasts and screen recordings. Adapt source acquisition, transcription language, speaker crops and illustrative content to the new recording while retaining the preset. Source-specific interview names, timestamps, images and personal claims are not defaults.
+
+Override the visual treatment only when the current request or an explicit project preference calls for another style. If no local `CONTENT_STYLE.md` exists, use the bundled preset directly; its absence is not a reason to ask again or choose a generic style. When the recording has no speaker camera, use the relevant source screen or footage in the camera region, keeping the same typography, timing, image treatment and audio defaults. Do not manufacture a speaker portrait.
+
 ## Style and resources
 
-For Anthony, use the approved [creator profile](../content-voice/references/creator-style.md) when installed and the bundled [style preset](assets/remotion/style.json). A project `CONTENT_STYLE.md` and current instructions override those defaults. For another creator, adapt the preset to their preferences. Social-copy lowercase does not change source quotations or subtitle spelling.
+The default is already approved for Anthony. Use the approved [creator profile](../content-voice/references/creator-style.md) when installed and the bundled [style preset](assets/remotion/style.json). A project `CONTENT_STYLE.md` and current instructions override those defaults. For another creator, adapt the preset to their preferences. Social-copy lowercase does not change source quotations or subtitle spelling.
 
 The usual treatment is 1080×1920 at 30 fps, full-bleed speaker camera, hard cuts with modest punch-ins, measured pause removal and pitch-preserving 1.15× speech. Adjust speed and silence thresholds for the actual voice. Keep completed ideas, necessary caveats and ending words.
 
@@ -22,7 +30,7 @@ Bootstrap from this skill's actual location, rather than an assumed home path:
 python3 <skill-dir>/scripts/bootstrap_project.py --workspace /path/to/production
 ```
 
-The offline bootstrap copies the template, licensed font, image prompt references and production helpers, preserves existing editable files, and reuses matching local runtime and sound caches. The skill ships no images. Read [the image prompts](references/image-prompts.md), adapt a scene to the current spoken idea, and generate fresh illustrations into the production workspace. Record the actual prompt and generation provenance there. These are conceptual illustrations, not factual evidence. Use camera portraits from the current recording. Font and cache metadata are in [the resource manifest](assets/resource-manifest.json). Read [resource reuse](references/resource-reuse.md) for missing caches or another machine. `--sound required` checks the private swipe cache; `auto` records missing setup without downloading; `skip` omits it. Final delivery still needs the requested sound or a disclosed omission.
+The offline bootstrap copies the template, licensed font, image prompt references and production helpers, preserves existing editable files, and reuses matching local runtime and sound caches. The skill ships no images. Read [the image prompts](references/image-prompts.md), adapt a scene to the current spoken idea, and generate fresh illustrations into the production workspace. Record the actual prompt and generation provenance there. These are conceptual illustrations, not factual evidence. Use camera portraits from the current recording. Font and cache metadata are in [the resource manifest](assets/resource-manifest.json). Read [resource reuse](references/resource-reuse.md) for missing caches or another machine. `--sound required` checks the private swipe cache; `auto` records missing setup without downloading; `skip` omits it. The opening swipe is part of the default, even when not separately requested. Final delivery needs it unless the creator explicitly omits it; a missing cache is a setup issue to resolve or disclose, not a stylistic choice.
 
 ## Acquire and transcribe
 

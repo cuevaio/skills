@@ -54,8 +54,10 @@ rejected pattern: adding "from matt pocock's interview with poteto." as the same
 
 ## video treatment
 
-for this creator's short clips, use the approved [youtube-remotion-clips style](../../youtube-remotion-clips/SKILL.md): full camera, tight cuts without empty silences, readable word highlighting, sustained relevant images in full-screen and camera/image split layouts, a first-frame split cover with a title, and a brief classic opening swipe. that skill owns the precise font, colors, safe positioning, timing and reusable assets; do not duplicate or reinvent its presets here. keep visual choices tied to the spoken idea.
+for all of this creator's clips, reels and shorts, automatically use the approved [youtube-remotion-clips style](../../youtube-remotion-clips/SKILL.md): full camera, tight cuts without empty silences, readable word highlighting, sustained relevant images in full-screen and camera/image split layouts, a first-frame split cover with a title, and a brief classic opening swipe. that skill owns the precise font, colors, safe positioning, timing and reusable assets; do not duplicate or reinvent its presets here. keep visual choices tied to the spoken idea. this is the permanent default across all video origins, topics, speakers and languages; the creator never needs to name poteto, a reference project or a style to activate it. retain the preset when no local profile exists. only explicit creator or project instructions override it. source-specific camera crops, interview names, generated images and personal claims still come from the current recording.
 
 ## next review trigger
 
 update the affected rule when the creator corrects a future draft. add genuinely approved examples; do not promote an unreviewed draft to evidence. retest an adaptation when the platform, audience or content type changes substantially.
+
+2026-10-03 correction: the creator confirmed that the approved clip style is always the default, independent of video origin. a plain request to create clips must activate it without a reference to the poteto production.
