@@ -8,6 +8,18 @@ import xml.etree.ElementTree as ET
 import requests
 
 
+def page_failure(html, status):
+    lowered=html.lower()
+    challenge=any(marker in lowered for marker in [
+        'making sure you', 'checking you are not a bot', 'access denied',
+        'anubis_challenge', 'anubis-challenge', 'sign in to confirm'])
+    if challenge:
+        return 'browser-challenge-or-access-denied'
+    if status in {401,403,418,429}:
+        return 'http-access-blocked'
+    return 'http-error' if status>=400 else 'no-playback-source'
+
+
 class WatchPage(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -56,8 +68,11 @@ def discover(watch_url, output, html_path=None, max_backends=3, session=None, ti
                 html, resolved = html_path.read_text(), page_url
             else:
                 page = session.get(page_url, timeout=timeout)
-                page.raise_for_status()
                 html, resolved = page.text, page.url
+                if page.status_code>=400:
+                    attempts.append(dict(stage='watch',status=page.status_code,
+                                         result=page_failure(html,page.status_code)))
+                    continue
             parser = WatchPage()
             parser.feed(html)
             if index == 0:
@@ -66,7 +81,8 @@ def discover(watch_url, output, html_path=None, max_backends=3, session=None, ti
                     if candidate not in pages:
                         pages.append(candidate)
             if not parser.sources:
-                attempts.append(dict(stage='watch', status='no source element'))
+                attempts.append(dict(stage='watch',status=page.status_code if not (index==0 and html_path) else None,
+                                     result=page_failure(html,200)))
             for src in parser.sources:
                 url = urljoin(resolved, src)
                 if url in visited:
