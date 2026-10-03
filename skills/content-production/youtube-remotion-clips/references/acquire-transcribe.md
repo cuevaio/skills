@@ -1,66 +1,55 @@
 # Download and transcribe a source
 
-Use an existing compatible environment before installing packages. It needs `yt-dlp[default]`, `faster-whisper`, `imageio-ffmpeg`, `requests` and compatible PyAV. Recorded versions are in [requirements.txt](requirements.txt). Node supplies yt-dlp's JavaScript runtime; imageio-ffmpeg can supply FFmpeg when it is absent from PATH. Keep logs and the attempt record in the production's source directory.
+## Use the acquisition CLI
 
-## 1. Direct download
+Use an existing compatible Python environment before installing packages. Dependencies are `yt-dlp[default]`, `requests`, `imageio-ffmpeg` and PyAV; Whisper additionally needs `faster-whisper`. Recorded versions are in [requirements.txt](requirements.txt). Node supplies yt-dlp's JavaScript runtime. The CLI finds FFmpeg on PATH or uses imageio-ffmpeg's bundled executable.
 
-Run from the production workspace using that environment's Python and FFmpeg. Download audio first so Whisper can start while the picture downloads. These commands preserve original audio and select source video up to 1080p:
-
-```bash
-python -m yt_dlp --js-runtimes node --socket-timeout 20 --retries 2 --extractor-retries 1 --fragment-retries 2 --write-info-json -f ba -o 'source/audio.%(ext)s' 'YOUTUBE_URL'
-python -m yt_dlp --js-runtimes node --socket-timeout 20 --retries 2 --extractor-retries 1 --fragment-retries 2 --ffmpeg-location 'FFMPEG_EXECUTABLE' --merge-output-format mp4 -f 'bv[height<=1080]+ba/b[height<=1080]' -o 'source/video.%(ext)s' 'YOUTUBE_URL'
-```
-
-Get `FFMPEG_EXECUTABLE` from `imageio_ffmpeg.get_ffmpeg_exe()` when necessary. Check the actual saved audio extension before calling Whisper. If the downloaded video's container differs, remux it to `source/video.mp4`; do not rename a container blindly.
-
-Capture the error and classify it. A missing runtime, unsupported option, format choice or expired URL is a setup/request problem. HTTP 429 or `LOGIN_REQUIRED` is an access problem. A successful title, thumbnail or oEmbed response does not establish playable media. Validate the saved media by probing and decoding it before proceeding.
-
-## 2. When direct access is blocked
-
-Confirm playback once in a normal browser, following the browser skill's actual CLI and launch diagnostics. Inspect player status, not just the title. A browser may render the page while the player reports a bot check. If both browser and downloader show the same access block, repeating identical requests or switching arbitrary client names is not progress.
-
-Check the [current yt-dlp extractor guidance](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#youtube) and [PO-token guide](https://github.com/yt-dlp/yt-dlp/wiki/PO-Token-Guide). Try a different documented client/token route only when its actual prerequisites are available. Do not pretend that a token provider, authenticated browser, proxy or another network exists. Never copy credentials from an unrelated profile.
-
-For a public mirror fallback, consult the [maintained Invidious list](https://api.invidious.io/) at execution time and test a small set of current instances. Save status codes and actual response types. Dead instances and a blocked public API do not prove that every playback route fails.
-
-## 3. Discover playback routes instead of guessing them
-
-Open a current mirror's watch page for the target video. Inspect its actual HTML `source` elements, manifest URLs and backend-switch links. Use `local=true` only when that instance supports it. Preserve the complete fresh URL, including query parameters and any routing/signature fields. Do not construct companion endpoints from a remembered host or video id. A hand-built endpoint returning 400 has not tested the route advertised by the player.
-
-The companion software handles stream retrieval, but public instances can have different configuration and access requirements. Discover their routes from the current page rather than assuming a particular hostname, backend number or API shape.
-
-Use the helper on a current public mirror watch URL:
+Run the bundled [download_source.py](../scripts/download_source.py) from the installed skill directory. Prefer this shared entry point so an old production workspace cannot keep stale acquisition helpers. If the skill is installed elsewhere, use its actual catalog path:
 
 ```bash
-python scripts/discover_download.py 'CURRENT_MIRROR_WATCH_URL' --output source/download-routes.json
+python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL_OR_LOCAL_FILE' --workspace .
 ```
 
-It follows source elements and advertised backend links, validates DASH XML, resolves relative media URLs against the response host, and checks small audio/video byte ranges. It tests at most three advertised alternate backends by default. It records failures and returns exit code 2 if no route was verified. It does not guarantee that a mirror is available or authenticate to a protected service.
+This is the default acquisition path. Do not write another downloader, range fetcher, manifest parser or muxing script. The command handles source identity, direct yt-dlp attempts, bounded public-mirror discovery, advertised backend links, fresh signed manifests, session cookies, checked range downloads, audio extraction, muxing, media probing and full decode verification. It selects video up to 1080p. Mirror acquisition currently supports DASH representations with direct BaseURL media and checked byte-range access; unsupported layouts are reported rather than guessed.
 
-If the watch page is accessible only in the browser, save its HTML in the production workspace and pass `--html source/watch.html` with the browser's actual current URL. A browser CORS error fetching a companion manifest is distinct from an HTTP failure: test the exact advertised URL using a normal HTTP client. HTML or bot-check text returned with HTTP 200 is not a manifest. A valid MPD without working media URLs is not a downloaded source.
+Successful output is `source/video.mp4`, `source/audio.mka`, `source/acquisition.json` and an acquisition entry in `provenance.json`. The audio container preserves the original codec; do not assume an `.m4a` extension. Exit codes: `0` verified media, `2` acquisition blocked after the bounded attempts, `1` setup/input error. Read the JSON status and report before moving to transcription or rendering. Page titles, thumbnails, HTTP 200 HTML and an MPD without working media do not count as acquired footage.
 
-The report contains fresh signed URLs. Keep it private, never put it in the skill/repo, and print only route counts or status summaries. Download promptly; expired URLs require rediscovery.
+Rerunning the same command verifies hashes and reuses completed files and checked partial ranges. A workspace belongs to one source; choose a new workspace for a different recording. A file lock prevents simultaneous acquisition in the same workspace. Keep all acquisition logs, signed URLs and partial downloads private in the production directory, never in this skill or repository.
 
-## 4. Download a verified manifest
-
-Read the verified manifest URL from `source/download-routes.json` and pass it to yt-dlp with the generic extractor. Use `subprocess.run` with an argument list instead of embedding a signed URL in a shell command. Select the current audio/video representation ids from the report or yt-dlp's format list, not ids from an old video. Save original audio separately and mux picture plus audio into `source/video.mp4` using FFmpeg.
-
-If a continuous stream is slow but checked ranges work, use [download_ranges.py](../scripts/download_ranges.py):
+To start transcription before acquiring the picture:
 
 ```bash
-python scripts/download_ranges.py source/download-manifest-0.mpd 'ACTUAL_MANIFEST_URL' 'CURRENT_REPRESENTATION_ID' source/video-track.mp4
+python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace . --audio-only
+python scripts/transcribe.py source/audio.mka --output transcript
+python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace .
 ```
 
-This helper expects a direct representation BaseURL with `clen` in its URL. Use it only for that compatible manifest shape; other DASH layouts belong in yt-dlp's downloader. A remote-IP-bound Googlevideo URL may fail directly while the mirror's advertised proxy route works. Do not replace a verified proxy URL with an origin URL.
+Wait for the audio-only command to finish before starting the other commands. Transcription and picture acquisition can then run independently.
 
-Probe both streams, mux and decode the result. Record video id, original URL, selected route, format ids, duration and acquisition status in provenance. Keep expired references out of reusable instructions.
+## Supply a concrete route when needed
 
-## 5. Stop with specific evidence when access is unavailable
+By default the CLI discovers a bounded set of HTTPS instances from the current [Invidious registry](https://api.invidious.io/instances.json). `--max-mirrors` and `--max-backends` default to three each. `--max-mirrors 0` disables mirror fallback. A live registry and the instances can be unavailable; read their actual attempt results.
 
-Maintain a short attempt ledger: method, changed condition, result and next action. After a direct attempt, one browser confirmation and a bounded set of advertised fallback routes, stop repeating blocked methods. Report whether the blocker needs source footage, valid authentication or an available network route. Do not claim successful acquisition until actual media is saved and decoded. A skill cannot guarantee access to a platform or a third-party mirror.
+An explicitly supplied current mirror origin or watch URL replaces registry discovery:
+
+```bash
+python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace . --mirror 'CURRENT_MIRROR_OR_WATCH_URL'
+```
+
+If a mirror watch page works only in the browser, save its HTML and use its actual current URL:
+
+```bash
+python ~/.agents/skills/youtube-remotion-clips/scripts/download_source.py 'VIDEO_URL' --workspace . --mirror 'CURRENT_WATCH_URL' --watch-html source/watch.html
+```
+
+The CLI reads the page's source elements and advertised backend links, preserving complete query parameters. It never constructs companion endpoints from remembered hosts or video ids. Browser CORS failure and an HTTP playback failure are different: this HTTP client tests the exact advertised routes. Authentication required beyond anonymous page cookies must be explicitly provided; the CLI does not search browser profiles. An explicitly supplied Netscape cookie file can be passed as `--cookies /path/to/cookies.txt` for yt-dlp.
+
+For setup errors, inspect the private log and the installed environment. For access blocks, check the [current yt-dlp extractor guidance](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#youtube) and [PO-token guide](https://github.com/yt-dlp/yt-dlp/wiki/PO-Token-Guide) only if a documented prerequisite is actually available. A browser confirmation can distinguish playback failure from downloader setup. Follow the browser skill for its launch arguments. Do not cycle through guessed clients, endpoints or nonexistent tokens after the report shows the same access block. Report the specific missing source, authentication or working network route.
+
+The lower-level [discovery helper](../scripts/discover_download.py) and [range helper](../scripts/download_ranges.py) remain available for diagnosing a concrete route. The range helper derives the actual size from Content-Range, checks each response and resumes atomic 1 MiB chunks; it does not require a `clen` query parameter. The acquisition CLI already orchestrates these helpers; normal production should not invoke them separately.
 
 ## Whisper
 
-Use [transcribe.py](../scripts/transcribe.py) for word-timestamped JSON, TXT and SRT. An efficient full-video model plus a larger model for selected excerpts can reduce CPU turnaround. Preserve the raw full transcript, and review technical names, low-confidence words and hallucinations against the audio.
+Use [transcribe.py](../scripts/transcribe.py) for word-timestamped JSON, TXT and SRT. Its defaults are multilingual `small`, CPU int8 and language detection. `--language en --model small.en` fits confirmed English audio. `--local-files-only` requires the model in cache.
 
-The CLI defaults to multilingual `small` and detects language. `--language en --model small.en` fits confirmed English audio. `--local-files-only` requires the chosen model to exist in cache. A larger model can repeat the same mistake; verification remains necessary.
+Preserve the raw full transcript. An efficient full-video model plus a larger model for selected excerpts can reduce CPU turnaround. Review technical names, low-confidence words and hallucinations against the audio; a larger model can repeat the same mistake.
