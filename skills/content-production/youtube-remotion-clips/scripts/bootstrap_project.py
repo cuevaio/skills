@@ -27,7 +27,6 @@ def copy_resource(source, destination, expected=None, preserve_existing=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--workspace', required=True, type=Path)
-    parser.add_argument('--images', nargs='*', help='Image IDs to copy; omit to copy the five cached illustrations')
     parser.add_argument('--no-runtime-link', action='store_true')
     parser.add_argument('--cache-root', type=Path, default=Path('~/.cache/clip-production'),
                         help='Private clip-production cache root')
@@ -38,16 +37,13 @@ def main():
     workspace = args.workspace.expanduser().resolve()
     if workspace == skill or skill in workspace.parents:
         raise ValueError('The production workspace must be outside the skill folder')
-    manifest = json.loads((skill/'assets/library/manifest.json').read_text())
+    manifest = json.loads((skill/'assets/resource-manifest.json').read_text())
     cache_root = args.cache_root.expanduser().resolve()
     for section in ['privateSound', 'runtime']:
         for key, value in manifest[section].items():
             prefix = '~/.cache/clip-production/'
             if isinstance(value, str) and value.startswith(prefix):
                 manifest[section][key] = str(cache_root/value[len(prefix):])
-    ids = {i['id'] for i in manifest['images']}
-    if args.images is not None and set(args.images)-ids:
-        raise ValueError(f'Unknown image IDs: {sorted(set(args.images)-ids)}')
     for name in ['source','transcript','scripts','clips','covers','review','remotion/public']:
         (workspace/name).mkdir(parents=True, exist_ok=True)
     template = skill/'assets/remotion'
@@ -57,13 +53,7 @@ def main():
     for source in (skill/'scripts').glob('*.py'):
         if source.name != Path(__file__).name:
             copy_resource(source, workspace/'scripts'/source.name, preserve_existing=True)
-    copied = []
-    for resource in manifest['images']:
-        if args.images is not None and resource['id'] not in args.images:
-            continue
-        source = skill/resource['path']
-        copy_resource(source, workspace/'remotion/public'/source.name, resource['sha256'])
-        copied.append(resource['id'])
+    copy_resource(skill/'references/image-prompts.md', workspace/'image-prompts.md', preserve_existing=True)
     sound = manifest['privateSound']
     sound_sources = [(Path(sound['path']).expanduser(), 'opening-swipe.wav', sound['sha256']),
                      (Path(sound['sourcePath']).expanduser(), 'mixkit-fast-swipe-zoom-2627.wav', None),
@@ -91,11 +81,11 @@ def main():
         clips.write_text('[]\n')
     copy_resource(skill/'references/requirements.txt', workspace/'requirements.txt', preserve_existing=True)
     (workspace/'review/resource-reuse.json').write_text(json.dumps({
-        'skill':str(skill),'images':copied,'sound':'private local cache' if reused_sound else 'not copied; setup needed before final export',
+        'skill':str(skill),'imagePrompts':'image-prompts.md','sound':'private local cache' if reused_sound else 'not copied; setup needed before final export',
         'runtimeLinked':linked,'python':sys.executable,
         'whisperCache':runtime['whisperCache'],'networkRequests':0
     }, indent=2)+'\n')
-    print(json.dumps({'workspace':str(workspace),'images':copied,'privateSoundReused':reused_sound,
+    print(json.dumps({'workspace':str(workspace),'imagePrompts':'image-prompts.md','privateSoundReused':reused_sound,
                       'runtimeLinked':linked,'networkRequests':0}))
 
 

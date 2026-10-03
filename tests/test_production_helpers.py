@@ -21,11 +21,16 @@ class ProductionHelpers(unittest.TestCase):
             self.assertFalse(state['privateSoundReused'])
             self.assertFalse(state['runtimeLinked'])
             self.assertEqual(state['networkRequests'], 0)
-            self.assertTrue((workspace/'remotion/public/kitchen.png').is_file())
+            self.assertTrue((workspace/'image-prompts.md').is_file())
+            self.assertTrue((workspace/'remotion/public/SpaceGrotesk-Variable.ttf').is_file())
+            self.assertFalse(any(p.suffix.lower() in {'.png','.jpg','.webp'} for p in workspace.rglob('*')))
+            prompts = workspace/'image-prompts.md'
+            prompts.write_text('creator adapted the prompts\n')
             renderer = workspace/'remotion/src/index.jsx'
             renderer.write_text('creator edited this renderer\n')
             subprocess.run(command, check=True, capture_output=True)
             self.assertEqual(renderer.read_text(), 'creator edited this renderer\n')
+            self.assertEqual(prompts.read_text(), 'creator adapted the prompts\n')
             required = subprocess.run(command+['--sound','required'], capture_output=True)
             self.assertNotEqual(required.returncode, 0)
             self.assertIn(b'Private swipe cache is missing', required.stderr)

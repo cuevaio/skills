@@ -41,7 +41,7 @@ See the [content-production collection](skills/content-production/README.md) for
 
 ## Organization and maintenance
 
-Keep domain categories under `skills/`, with one independently discoverable `SKILL.md` per capability. `content` is a small router; phase skills own editorial decisions; tool adapters own implementation. Detailed procedures, scripts and assets live inside the skill that uses them. The YouTube/Remotion adapter is a sibling of the Screen Studio adapter, so you can install either without loading both workflows.
+Keep domain categories under `skills/`, with one independently discoverable `SKILL.md` per capability. `content` is a small router; phase skills own editorial decisions; tool adapters own implementation. Detailed procedures, scripts, fonts and image prompt references live inside the skill that uses them. Generate images in each production workspace; no images are bundled. The YouTube/Remotion adapter is a sibling of the Screen Studio adapter, so you can install either without loading both workflows.
 
 Anthony's explicitly approved [creator defaults](skills/content-production/content-voice/references/creator-style.md) and examples are included. Another creator's local `CONTENT_STYLE.md` overrides them. Production footage, model weights, runtimes and the licensed opening sound stay outside the repository.
 

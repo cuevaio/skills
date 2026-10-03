@@ -28,7 +28,7 @@ Those crop values are illustrative for a 1920-pixel-wide source. Inspect dimensi
 
 ## Visual plan
 
-After tightening, write `visual-plan.json` with exactly one entry per current clip. Choose image holds by spoken meaning, using final output timestamps. For example:
+Generate topic images from `image-prompts.md` into `remotion/public/` and record their prompts and provenance. Filenames below refer to generated production outputs, not bundled resources. After tightening, write `visual-plan.json` with exactly one entry per current clip. Choose image holds by spoken meaning, using final output timestamps. For example:
 
 ```json
 [

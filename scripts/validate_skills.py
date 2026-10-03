@@ -35,11 +35,14 @@ def main():
     assert len(plugin['skills']) == len(manifest_skills), 'Duplicate plugin entries'
     assert manifest_skills == {str(skill.resolve()) for skill in skills}, 'Plugin catalog differs from discovered skills'
     adapter = root/'skills/content-production/youtube-remotion-clips'
-    catalog = json.loads((adapter/'assets/library/manifest.json').read_text())
-    for resource in catalog['images']+[catalog['font']]:
+    catalog = json.loads((adapter/'assets/resource-manifest.json').read_text())
+    for resource in [catalog['font']]:
         path = adapter/resource['path']
         assert hashlib.sha256(path.read_bytes()).hexdigest() == resource['sha256'], path
     assert (adapter/catalog['font']['license']).exists()
+    image_formats = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.avif', '.svg'}
+    assert not any(p.suffix.lower() in image_formats for p in adapter.rglob('*')), 'Bundle image prompts, not image files'
+    assert (adapter/'references/image-prompts.md').is_file()
     for file in root.rglob('*.py'):
         if '.git' not in file.parts:
             ast.parse(file.read_text(), filename=str(file))

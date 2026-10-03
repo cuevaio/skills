@@ -1,10 +1,10 @@
 # Resource reuse and another machine
 
-The approved preset is `assets/remotion/style.json`. The skill ships the Remotion template and lockfile, Space Grotesk with its SIL OFL license, and five generated conceptual illustrations. The asset catalog records hashes, tags, focal points and provenance. Reuse topic-matching resources; do not reuse camera portraits from a previous recording. The repository's MIT license covers authored instructions and helpers; the bundled font keeps its own license. No standalone Mixkit sound is distributed here.
+The approved preset is `assets/remotion/style.json`. The skill ships the Remotion template and lockfile, Space Grotesk with its SIL OFL license, and [image prompt references](image-prompts.md). It contains no image files. Adapt the prompts to the current explanation and generate images in the production workspace; save the actual prompts, image provenance and inspected focal points there. Do not reuse camera portraits from a previous recording. The repository's MIT license covers authored instructions and helpers; the bundled font keeps its own license. No standalone Mixkit sound is distributed here.
 
 ## Offline bootstrap
 
-`bootstrap_project.py --workspace /path/to/production` copies actual files into Remotion public, checks cached font/image/sound hashes, and preserves editable project files. It makes no network calls. `--cache-root /path/to/cache` selects a different private cache without changing the catalog. Select images with `--images kitchen team`; `--images` alone skips illustration copies. It records reused and missing resources in `review/resource-reuse.json`.
+`bootstrap_project.py --workspace /path/to/production` copies actual files into Remotion public, checks cached font/sound hashes, and preserves editable project files. It makes no network calls. `--cache-root /path/to/cache` selects a different private cache without changing the catalog. It copies `image-prompts.md` into the workspace for adaptation; it does not generate, download or copy images. It records reused and missing resources in `review/resource-reuse.json`.
 
 A matching cached Remotion runtime at `~/.cache/clip-production/runtime/remotion-4.0.532/` can provide immutable node_modules. It is linked only when package-lock hashes match. `--no-runtime-link` opts out. If dependencies must change, remove only the workspace symlink and install locally; never mutate the shared cache. If the runtime is missing, run `npm ci` in the workspace's remotion directory using its saved lockfile.
 
