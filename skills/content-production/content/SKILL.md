@@ -10,7 +10,7 @@ Move the production through artifact gates. Load and follow the matching phase s
 
 ## Default clip route
 
-Any request to create clips, reels or shorts uses `youtube-remotion-clips` and the saved visual preset by default, regardless of video origin. "Create 5 clips from this YouTube video" already authorizes the complete clip-production workflow. Do not require a reference to Poteto, a style name or Remotion, and do not ask for style confirmation. Retain the preset unless the creator explicitly requests a different treatment. A missing local style profile does not remove the defaults. Source names, crops, language and illustration prompts come from the current recording.
+Any request to create clips, reels or shorts uses `youtube-remotion-clips` and the saved visual preset by default, regardless of video origin. "Create 5 clips from this YouTube video" already authorizes the complete clip-production workflow. Do not require a previous production, a style name or Remotion, and do not ask for style confirmation. Retain the preset unless the creator explicitly requests a different treatment. A missing local style profile does not remove the defaults. Source names, crops, language and illustration prompts come from the current recording.
 
 ## Route
 

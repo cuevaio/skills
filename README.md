@@ -41,13 +41,13 @@ See the [content-production collection](skills/content-production/README.md) for
 
 ## Default clip style
 
-Ask "create 5 clips from [video URL]". The installed clip skill automatically uses Anthony's approved style for any source: full camera, tight cuts, Space Grotesk captions with word highlighting, sustained full/split images, a one-frame split cover and an opening swipe. No Poteto reference, style name or Remotion mention is needed. Explicit style changes override the preset; images are generated fresh from prompt references.
+Ask "create 5 clips from [video URL]". The installed clip skill automatically uses Anthony's approved style for any source: full camera, tight cuts, Space Grotesk captions with word highlighting, sustained full/split images, a one-frame split cover and an opening swipe. No previous-production reference, style name or Remotion mention is needed. Explicit style changes override the preset; images are generated fresh from prompt references.
 
 ## Organization and maintenance
 
 Keep domain categories under `skills/`, with one independently discoverable `SKILL.md` per capability. `content` is a small router; phase skills own editorial decisions; tool adapters own implementation. Detailed procedures, scripts, fonts and image prompt references live inside the skill that uses them. Generate images in each production workspace; no images are bundled. The YouTube/Remotion adapter is a sibling of the Screen Studio adapter, so you can install either without loading both workflows.
 
-Anthony's explicitly approved [creator defaults](skills/content-production/content-voice/references/creator-style.md) and examples are included. Another creator's local `CONTENT_STYLE.md` overrides them. Production footage, model weights, runtimes and the licensed opening sound stay outside the repository.
+Anthony's explicitly approved [creator defaults](skills/content-production/content-voice/references/creator-style.md) and reusable writing patterns are included. Another creator's local `CONTENT_STYLE.md` overrides them. Production footage, model weights, runtimes and the licensed opening sound stay outside the repository.
 
 Run repository checks with a Python environment containing PyYAML:
 

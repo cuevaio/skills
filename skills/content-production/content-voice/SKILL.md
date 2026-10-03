@@ -15,7 +15,7 @@ Choose the mode:
 
 ## Creator defaults
 
-For this creator, read [the saved style and approved examples](references/creator-style.md). These defaults remain available across projects. A local `CONTENT_STYLE.md` adds project-specific context; current explicit instructions override both. The creator requested these preferences and examples be stored in the skills. When updating them, keep general voice choices separate from source-specific claims and names.
+For this creator, read [the saved creator defaults](references/creator-style.md). These defaults remain available across projects. A local `CONTENT_STYLE.md` adds project-specific context; current explicit instructions override both. The creator requested these preferences be stored in the skills. When updating them, keep general voice choices separate from source-specific claims and names.
 
 ## 1. Locate The Profile And Evidence
 
@@ -48,7 +48,7 @@ Use [the profile template](references/content-style-template.md). Every rule nee
 
 The active profile must expose, inline and easy to scan: status/evidence, core point of view, voice invariants, platform adaptations with calibration status, preferred structures, formatting, anti-patterns, approved examples, and correction log.
 
-Store production-specific profiles in the private content workspace. This collection includes Anthony's explicitly requested shared defaults and approved examples; use them for his content, and let another creator's own profile override them.
+Store production-specific profiles in the private content workspace. This collection includes Anthony's explicitly requested shared defaults; use them for his content, and let another creator's own profile override them.
 
 ## 4. Calibrate
 

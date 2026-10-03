@@ -50,9 +50,9 @@ Sibling skills are discovered by name when installed. Read only the phase needed
 
 ## Creator defaults and production state
 
-[content-voice](content-voice/SKILL.md) maintains the shared, explicitly approved [Anthony profile](content-voice/references/creator-style.md), including natural interview recommendations, lowercase friendly copy, relevant instagram hashtags and source-specific personal-claim boundaries. A local `CONTENT_STYLE.md` records project-specific choices and overrides shared defaults. For another creator, learn their style.
+[content-voice](content-voice/SKILL.md) maintains the shared, explicitly approved [Anthony profile](content-voice/references/creator-style.md), including natural recommendations, lowercase friendly copy, relevant instagram hashtags and accurate attribution. A local `CONTENT_STYLE.md` records project-specific choices and overrides shared defaults. For another creator, learn their style.
 
-The Remotion adapter owns the [visual preset](youtube-remotion-clips/assets/remotion/style.json), reusable font, image prompt references and renderer. Private sound and runtime caches are reused locally and set up separately on another machine. Generated images, active productions, recordings, transcripts, source URLs and review results stay in a production workspace. The bundled interview examples demonstrate decisions; their ids, timestamps and speaker names are never new-production defaults.
+The Remotion adapter owns the [visual preset](youtube-remotion-clips/assets/remotion/style.json), reusable font, image prompt references and renderer. Private sound and runtime caches are reused locally and set up separately on another machine. Generated images, active productions, recordings, transcripts, source URLs and review results stay in a production workspace. The production contract provides generic input examples; source ids, timestamps and participant names always come from the current recording.
 
 ## Catalog
 

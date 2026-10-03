@@ -1,63 +1,47 @@
-# creator content style
+# Creator content style
 
-## evidence and scope
+## Scope and approval
 
-approved on 2026-10-03: the creator requested "lowercase all, casual, friendly, not buzzy words", instagram hashtags, and natural interview context. after the revised five sets of linkedin, instagram and x copy, they said "nice" and asked to save these learnings in the content skills. [approved examples](approved-social-copy.json) preserve those fifteen posts and their clip ids. source: matt pocock interviewing poteto, youtube video MN9dGgmLyso.
+These are Anthony's explicitly approved defaults, saved from creator feedback on 2026-10-03. Use them for his content across projects. Another creator's own profile and current explicit instructions take precedence. Written interview recommendations are calibrated for linkedin, instagram and x; other spoken or written formats remain provisional. Approval of copy does not authorize publication.
 
-these are anthony's defaults for his own content. when another creator uses the collection, learn their voice rather than treating these examples as their preferences. current instructions and explicit project-specific preferences take precedence. linkedin, instagram and x adaptations are approved for interview recommendations; spoken scripts and other content types remain provisional. approval of copy does not authorize publication.
+## Voice and formatting
 
-## voice and formatting
-
-- write post copy in lowercase, including names, acronyms, titles and hashtags. preserve case-sensitive links, handles, code and verbatim quotations when changing them would break or misrepresent the source. this is a copy preference, not a requirement to lowercase transcripts or the approved video typography.
-- sound like a person sharing something useful with a friend. use plain words, contractions and short connected paragraphs.
-- avoid buzzwords, corporate language, inflated promises, forced suspense and generic motivational endings. do not turn every post into a lesson or a sales pitch.
+- write post copy in lowercase, including names, acronyms, titles and hashtags. preserve case-sensitive links, handles, code and verbatim quotations when changing them would break or misrepresent the source. social-copy casing does not change transcript spelling or the video typography.
+- use plain words, contractions and short connected paragraphs. sound like a person sharing something useful with a friend.
+- avoid buzzwords, corporate language, inflated promises, forced suspense and generic motivational endings. do not turn every post into a formal lesson or sales pitch.
 - let a complete thought end naturally. questions and calls to action are optional; recommendations can be gentle and specific.
-- adapt to each destination while keeping the same factual source and voice. do not paste identical copy across platforms.
+- adapt each platform from the same factual source instead of pasting identical copy everywhere.
 
-## content and framing
+## Content and attribution
 
-for interview clips, recommend the conversation and connect it to one specific idea in the clip. weave who is interviewing whom into the thought. vary the wording across posts, rather than appending a repeated source footer. let the video carry the full explanation while the caption supplies enough context to stand alone.
+For interview clips, naturally recommend the conversation and connect it to one specific idea. Weave the actual interviewer and guest into the thought where relevant. Vary the phrasing rather than appending the same detached attribution footer. Participant names always come from the current source; none are hardcoded defaults.
 
-name matt pocock and poteto in every standalone post from this particular interview. other sources need their own accurate context; these names are not universal defaults.
+Let the video carry the full explanation while the caption gives enough context to stand alone. Keep personal stories and results attributed to the actual speaker. First-person learning, enthusiasm or new ideas are appropriate only when the creator has said those things about the current source. Do not invent experiments, adopted workflows, outcomes or endorsements.
 
-the creator explicitly said this interview taught them a lot and gave them new ideas. first-person learning, curiosity and recommendations are supported for this source. do not carry that claim into an unrelated interview without evidence. keep the speaker's experiences attributed to the speaker: poteto's overnight merges and agent setup are not the posting creator's results. never invent an experiment, workflow adoption or outcome.
+Select complete, useful ideas with their necessary caveats. Hooks and titles describe what the clip actually explains. A striking number or anecdote must retain context and accurate ownership.
 
-select complete, useful ideas with their necessary caveats. headings and hooks should describe what the clip actually explains. a striking number or anecdote must not erase context or imply a result the creator achieved.
+## Platform adaptations
 
-## platform adaptations
+- linkedin: a little more context and a concrete takeaway, usually in short paragraphs. a personal recommendation can open or close without formal attribution language.
+- instagram: a short caption that complements the reel, with a few relevant lowercase hashtags. choose topical tags for the current clip.
+- x: one clear idea with enough source context to stand alone. keep it concise and fit the requested post format.
 
-- linkedin: a little more context and a concrete takeaway, often across two or three short paragraphs. a personal recommendation can open or close the post without formal attribution language.
-- instagram: a short caption that complements the reel. include a few relevant lowercase hashtags. the approved examples use three topical tags; the exact number and tags are not mandatory.
-- x: one clear idea with enough source context to stand alone. keep it concise and adapt to the requested post format and destination limits.
+## Reusable writing patterns
 
-## approved examples and rejected pattern
+These patterns generalize approved writing decisions. Bracketed fields require current-source facts and confirmed creator experience; they are not approved finished posts.
 
-linkedin, verification clip:
+- "this part of [interviewer]'s interview with [guest] gave me some ideas for [confirmed area of interest]." follow with the specific idea and supported takeaway.
+- "really enjoyed hearing [guest] explain [topic] in their chat with [interviewer]." use only when the creator has expressed that enjoyment.
+- start with the concrete idea, then naturally connect it to the current conversation. a recommendation does not always need to open the post.
 
-> this part of matt pocock's interview with poteto gave me some ideas for my own setup.
->
-> give the agent a way to run the app, use it, and see what happened. screenshots and traces help it figure out where things went wrong.
->
-> i came away thinking about what my agents can actually check for themselves.
+Avoid repeating a standalone "from [interviewer]'s interview with [guest]." footer across a batch. Keep exact approved source-specific copy in the production workspace, not in the reusable skill.
 
-instagram, kitchen clip:
+## Default video treatment
 
-> loved the kitchen analogy in matt pocock's interview with poteto. the agents help with the cooking, and you're still responsible for what gets served.
->
-> #aiagents #softwaredevelopment #aicoding
+All clips, reels and shorts automatically use the [saved clip preset](../../youtube-remotion-clips/SKILL.md), independent of origin, topic, speaker and language: full camera, tight cuts without empty silences, Space Grotesk captions in the saved position with active-word highlighting, sustained full-screen and split images, a first-frame split cover with a title, and a brief opening swipe.
 
-x, coordination clip:
+The creator never needs to name a previous production or request this style again. Use the preset even when no local profile exists; only explicit creator or project instructions override it. The adapter owns the precise font, colors, placement, timing and reusable resources. Generate fresh images from its prompt references and choose camera crops from the current recording. Keep visual choices tied to the spoken idea.
 
-> poteto explaining her agent setup to matt pocock gave me new ideas. teaching agents where to find context, then having coordinators delegate and follow up, sounds useful once several are working at once.
+## Maintenance
 
-rejected pattern: adding "from matt pocock's interview with poteto." as the same detached footer to every post. the creator corrected this to feel like naturally recommending a cool interview they learned from.
-
-## video treatment
-
-for all of this creator's clips, reels and shorts, automatically use the approved [youtube-remotion-clips style](../../youtube-remotion-clips/SKILL.md): full camera, tight cuts without empty silences, readable word highlighting, sustained relevant images in full-screen and camera/image split layouts, a first-frame split cover with a title, and a brief classic opening swipe. that skill owns the precise font, colors, safe positioning, timing and reusable assets; do not duplicate or reinvent its presets here. keep visual choices tied to the spoken idea. this is the permanent default across all video origins, topics, speakers and languages; the creator never needs to name poteto, a reference project or a style to activate it. retain the preset when no local profile exists. only explicit creator or project instructions override it. source-specific camera crops, interview names, generated images and personal claims still come from the current recording.
-
-## next review trigger
-
-update the affected rule when the creator corrects a future draft. add genuinely approved examples; do not promote an unreviewed draft to evidence. retest an adaptation when the platform, audience or content type changes substantially.
-
-2026-10-03 correction: the creator confirmed that the approved clip style is always the default, independent of video origin. a plain request to create clips must activate it without a reference to the poteto production.
+Update the affected rule after an explicit correction. Retest an adaptation when audience, platform or content type changes substantially. Keep source-specific facts and exact example copy in the production workspace rather than accumulating production history here.

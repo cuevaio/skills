@@ -8,13 +8,11 @@ This preserves existing install names and the category structure. Adding nested 
 
 ## Research
 
-Reviewed the current [mattpocock collection](https://github.com/mattpocock/skills) and its category guides. Its structure combines domain categories, small skills, explicit user-invoked routers and reusable model-invoked disciplines. We adopt that separation while preserving this collection's existing names.
-
 The [Agent Skills specification](https://agentskills.io/specification) defines a skill directory with SKILL.md plus optional scripts, references and assets, and recommends progressively loading detail. The [skills installer](https://github.com/vercel-labs/skills) supports discovery and selected installation; skill identity must survive installer flattening. Consequently, category folders organize the repository while each skill name remains unique. Cross-skill links resolve after full installation into sibling directories; subset installations need explicit companion guidance.
 
 ## Defaults and portability
 
-Keep Anthony's explicitly requested writing defaults in one content-voice reference with approved examples. Other creators and explicit project preferences override those defaults. Keep the clip style in the adapter's actual renderer preset. Examples are evidence, not fixed source ids, crops or personal claims.
+Keep Anthony's explicitly requested writing defaults in one content-voice reference with reusable writing patterns. Other creators and explicit project preferences override those defaults. Keep the clip style in the adapter's actual renderer preset. Examples are evidence, not fixed source ids, crops or personal claims.
 
 Portable templates, fonts and image prompts travel with the skill. Image files are production outputs, not distributed skill assets. Copyrighted sound, dependency installations and Whisper model weights remain caches outside it. Bootstrap must make no network calls and work as a scaffold when optional caches are absent, while clearly reporting setup needed before final delivery. Source-specific crops, cover timestamps and visual beats are production metadata, not helper constants.
 
