@@ -34,7 +34,7 @@ The offline bootstrap copies the template, licensed font, image prompt reference
 
 ## Acquire and transcribe
 
-Keep the full recording as `source/video.mp4`. Use open-source yt-dlp for YouTube, or copy the supplied local recording. Reuse available Python environments, Whisper models and the pinned Remotion runtime before installing anything. Read [acquisition and transcription](references/acquire-transcribe.md) when downloading or choosing a transcription model. Preserve raw transcripts and source provenance.
+Keep the full recording as `source/video.mp4`. Use open-source yt-dlp for YouTube, or copy the supplied local recording. Reuse available Python environments, Whisper models and the pinned Remotion runtime before installing anything. Read and follow [acquisition and transcription](references/acquire-transcribe.md) before the first download. It provides direct commands, access-failure classification, advertised-route discovery and a bounded fallback procedure. Never guess companion URLs or treat page metadata as successful acquisition. Preserve raw transcripts and source provenance.
 
 ```bash
 python scripts/transcribe.py source/video.mp4 --model small --output transcript
