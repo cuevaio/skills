@@ -39,6 +39,10 @@ Move an idea through research, scripting, recording, editing, repurposing, platf
 
 See the [content-production collection](skills/content-production/README.md) for the workflow and individual installation guidance.
 
+## Default clip style
+
+Ask "create 5 clips from [video URL]". The installed clip skill automatically uses Anthony's approved style for any source: full camera, tight cuts, Space Grotesk captions with word highlighting, sustained full/split images, a one-frame split cover and an opening swipe. No Poteto reference, style name or Remotion mention is needed. Explicit style changes override the preset; images are generated fresh from prompt references.
+
 ## Organization and maintenance
 
 Keep domain categories under `skills/`, with one independently discoverable `SKILL.md` per capability. `content` is a small router; phase skills own editorial decisions; tool adapters own implementation. Detailed procedures, scripts, fonts and image prompt references live inside the skill that uses them. Generate images in each production workspace; no images are bundled. The YouTube/Remotion adapter is a sibling of the Screen Studio adapter, so you can install either without loading both workflows.

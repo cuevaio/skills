@@ -2,6 +2,10 @@
 
 Start from the artifact you already have. An existing interview does not need a new script or recording session.
 
+## Default for clips, reels and shorts
+
+A plain request such as "create 5 clips from this YouTube video" activates the approved visual preset automatically. The same default applies to other hosted videos, local recordings, podcasts and screen recordings. The creator does not need to name a previous production, specify "my style" or mention Remotion. Use the bundled preset if no local profile exists; change the style only for explicit creator or project instructions.
+
 ## Routes
 
 ```text

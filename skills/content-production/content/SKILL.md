@@ -8,6 +8,10 @@ disable-model-invocation: true
 
 Move the production through artifact gates. Load and follow the matching phase skill rather than improvising a second workflow.
 
+## Default clip route
+
+Any request to create clips, reels or shorts uses `youtube-remotion-clips` and the saved visual preset by default, regardless of video origin. "Create 5 clips from this YouTube video" already authorizes the complete clip-production workflow. Do not require a reference to Poteto, a style name or Remotion, and do not ask for style confirmation. Retain the preset unless the creator explicitly requests a different treatment. A missing local style profile does not remove the defaults. Source names, crops, language and illustration prompts come from the current recording.
+
 ## Route
 
 | Current state or request | Load | Gate reached |
@@ -18,7 +22,7 @@ Move the production through artifact gates. Load and follow the matching phase s
 | A brief or research pack that needs delivery language | `content-script` | The chosen script or outline exists |
 | A script but no proven capture environment | `video-setup` | A playback test passes |
 | A tested setup and material ready to perform | `video-record` | Preferred takes are verified |
-| A YouTube URL or local recording to turn into finished subtitled Remotion clips | `youtube-remotion-clips` with `content-repurpose` for selection | Verified clips, SRTs, covers and provenance exist |
+| A request for clips, reels or shorts from any video source, with or without a style reference | `youtube-remotion-clips` with `content-repurpose` for selection | Verified clips, SRTs, covers and provenance exist |
 | Raw footage, review notes, or a rough timeline | `video-edit` | A vertical or horizontal master is approved |
 | A `.screenstudio` project or Screen Studio implementation problem | `screenstudio-edit` | The edit or reconstruction passes QC |
 | A canonical source that should become clips or posts | `content-repurpose` | Derivative candidates are traceable and approved |

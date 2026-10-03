@@ -1,3 +1,4 @@
 interface:
-  display_name: "Usual clip style"
-  short_description: "Generate clips with the approved style and cached assets"
+  display_name: "Default clips and reels"
+  short_description: "Create clips from any source in the saved default style"
+  default_prompt: "Create the requested clips in the saved creator style automatically. Use the current source for speaker crops and image prompts; render and verify the finished MP4s, subtitles and covers."
