@@ -36,6 +36,7 @@ Move an idea through research, scripting, recording, editing, repurposing, platf
 - [`content-repurpose`](skills/content-production/content-repurpose/SKILL.md): derive useful clips and posts from a canonical source
 - [`social-post`](skills/content-production/social-post/SKILL.md): write native X, LinkedIn, and Instagram packages
 - [`content-publish`](skills/content-production/content-publish/SKILL.md): validate, post, and verify finished content
+- [`buffer-scheduling`](skills/content-production/buffer-scheduling/SKILL.md): queue clips through Buffer with verified attribution, duplicate prevention, and fewer API requests
 
 See the [content-production collection](skills/content-production/README.md) for the workflow and individual installation guidance.
 

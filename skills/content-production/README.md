@@ -40,6 +40,12 @@ For Screen Studio:
 npx skills@latest add cuevaio/skills --skill video-edit screenstudio-edit
 ```
 
+For Buffer scheduling:
+
+```bash
+npx skills@latest add cuevaio/skills --skill buffer-scheduling
+```
+
 For independent social copy:
 
 ```bash
@@ -71,3 +77,4 @@ The Remotion adapter owns the [visual preset](youtube-remotion-clips/assets/remo
 | [youtube-remotion-clips](youtube-remotion-clips/SKILL.md) | Model or user | Acquisition, Whisper, Remotion rendering and clip assets |
 | [social-post](social-post/SKILL.md) | Model or user | Native platform copy |
 | [content-publish](content-publish/SKILL.md) | Model or user | Export/delivery checks and authorized publication |
+| [buffer-scheduling](buffer-scheduling/SKILL.md) | Model or user | Buffer queues, source attribution, reconciliation and API request budgets |
