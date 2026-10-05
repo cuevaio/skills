@@ -11,6 +11,8 @@ Repurposing is adaptation, not duplication. Every derivative needs its own compl
 
 For this creator, read [the saved creator style](../content-voice/references/creator-style.md). Each clip should carry a complete useful idea; accompanying copy can recommend the source and share a supported personal takeaway. Preserve the original speaker's ownership of anecdotes and results. Every request for finished clips, reels or shorts routes to [youtube-remotion-clips](../youtube-remotion-clips/SKILL.md) with the approved preset automatically, regardless of source. The creator does not need to request their usual style or mention a previous production. Select the ideas and source ranges, then continue through rendering the requested count; do not stop at the candidate ledger when finished videos were requested. Only an explicit style override changes the preset.
 
+For Anthony's clip distribution, default to Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every available Buffer account in the selected organization. Carry destinations into the candidate ledger and handoff. Keep the same complete idea across destinations; adapt copy and packaging without choosing only the easiest platform. A current explicit subset overrides the default. Publication still follows the user's authorized scope.
+
 ## 1. Establish The Source Of Truth
 
 Identify the canonical artifact, its brief, research pack, transcript or timeline, publication status, and `CONTENT_STYLE.md`. Record source timestamps, sections, or claim IDs so derivatives can be verified later.

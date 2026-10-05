@@ -42,6 +42,12 @@ All clips, reels and shorts automatically use the [saved clip preset](../../yout
 
 The creator never needs to name a previous production or request this style again. Use the preset even when no local profile exists; only explicit creator or project instructions override it. The adapter owns the precise font, colors, placement, timing and reusable resources. Prefer actual product screenshots and verified photos relevant to the spoken idea, with generated illustrations for concepts. Fill every available region with images or video. Do not add backgrounds, cards, padding, borders, headings, person labels or source credits. Keep subtitles and the single preview-frame title. Choose camera crops from the current recording. Store attribution in the production ledger.
 
+## Clip distribution defaults
+
+On 2026-10-05, Anthony requested Instagram, LinkedIn, X, YouTube, Threads and TikTok for clip distribution, plus every available account in his Buffer organization. Discover the current accounts rather than storing a fixed list of channel IDs. Include multiple accounts on the same service and any additional connected services. Current explicit destination instructions override these defaults. This destination preference does not itself authorize publishing a render-only request.
+
+Apply the shared lowercase, source attribution and factual rules to new platform packages. YouTube Shorts need a clear title and useful description; Threads needs a conversational standalone thought; TikTok needs a concise caption that complements the video. These new adapters are provisional voice adaptations until reviewed, not previously calibrated examples.
+
 ## Maintenance
 
 Update the affected rule after an explicit correction. Retest an adaptation when audience, platform or content type changes substantially. Keep source-specific facts and exact example copy in the production workspace rather than accumulating production history here.

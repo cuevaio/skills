@@ -34,9 +34,9 @@ Move an idea through research, scripting, recording, editing, repurposing, platf
 - [`youtube-remotion-clips`](skills/content-production/youtube-remotion-clips/SKILL.md): download, transcribe and render complete subtitled clips with reusable Remotion assets
 - [`screenstudio-edit`](skills/content-production/screenstudio-edit/SKILL.md): edit or reconstruct Screen Studio projects programmatically
 - [`content-repurpose`](skills/content-production/content-repurpose/SKILL.md): derive useful clips and posts from a canonical source
-- [`social-post`](skills/content-production/social-post/SKILL.md): write native X, LinkedIn, and Instagram packages
+- [`social-post`](skills/content-production/social-post/SKILL.md): write native Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok packages, plus other connected destinations
 - [`content-publish`](skills/content-production/content-publish/SKILL.md): validate, post, and verify finished content
-- [`buffer-scheduling`](skills/content-production/buffer-scheduling/SKILL.md): queue clips through Buffer with verified attribution, duplicate prevention, and fewer API requests
+- [`buffer-scheduling`](skills/content-production/buffer-scheduling/SKILL.md): queue clips to every available Buffer account with verified attribution, per-account duplicate prevention, and fewer API requests
 
 See the [content-production collection](skills/content-production/README.md) for the workflow and individual installation guidance.
 

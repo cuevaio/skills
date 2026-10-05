@@ -19,6 +19,12 @@ Perform reversible export and verification work directly when tools permit it. P
 
 For this creator's titles and social captions, read [the saved creator style](../content-voice/references/creator-style.md) alongside the local profile. Preserve the approved natural source context, lowercase copy and relevant instagram hashtags. Use the approved copy instead of reintroducing a mechanical attribution footer in the composer. Video subtitles follow the video preset, not the social-copy casing rule.
 
+## Default clip destinations
+
+For Anthony, prepare each finished clip for Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every other available account in the selected Buffer organization. Discover channels live for each new batch. Include every channel ID, including multiple accounts on the same platform; a platform list is a minimum, not an account allowlist. An explicit destination subset in the current request overrides this default.
+
+Keep one delivery row per clip and channel ID, with native copy, required metadata, media, status and any blocker. Check video support and current destination requirements before scheduling. Report disconnected, locked, paused or unsupported channels and missing platforms instead of silently dropping them or reconnecting accounts. Newly connected channels join the next batch automatically. Rendering or copy-only requests prepare the packages; publishing requests carry forward the user's authorization and continue through Buffer scheduling and verification.
+
 ## 1. Protect The Production
 
 Confirm independent copies of canonical sources, project files, research, script, assets, captions, masters, platform packages, and style profile as appropriate. Preserve enough project and source state to revise time-sensitive claims later.
@@ -46,7 +52,7 @@ In **Validate** mode, stop here and report pass/fail evidence plus required repa
 
 Set title, description/caption, thumbnail or cover, captions, transcript, alt text, links, collaborators/tags, visibility, scheduling, regional/age/access settings, and canonical destination. Use the approved platform package rather than rewriting inside the composer without carrying the change back.
 
-Present the exact final package, account, destination, visibility, and publication time for approval. In **Prepare** mode, stop here.
+Record the final package, every target account and channel ID, visibility, and publication time or Buffer queue mode. In **Prepare** mode, stop here. In **Publish** mode, continue when the user has authorized the work; request approval only for a missing decision that changes that scope. For Buffer, use `buffer-scheduling` and verify each clip/channel row independently. Scheduling completion needs verified remote IDs and queue slots; live playback remains pending until publication.
 
 ## 4. Publish And Verify
 

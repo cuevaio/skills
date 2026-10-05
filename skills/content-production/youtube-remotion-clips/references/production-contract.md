@@ -69,7 +69,7 @@ The example requires a clip longer than 15 seconds. The planner checks ids, avai
 
 - source selection: `content-repurpose`, with source ranges and complete ideas in `edit-plan.json`.
 - rendering: `youtube-remotion-clips`, with `remotion/clips.json`, `review/`, `clips/*.mp4`, `clips/*.srt`, `covers/*.png` and `provenance.json`.
-- accompanying copy: `social-post`, using clip ids, speaker/interviewer names, source URL, actual claims and creator-confirmed takeaways. save platform variants in `social-copy.json`.
+- accompanying copy: `social-post`, using clip ids, speaker/interviewer names, source URL, actual claims and creator-confirmed takeaways. save platform variants in `social-copy.json`, covering Instagram, LinkedIn, X, YouTube Shorts, Threads, TikTok and any additional available Buffer accounts. Preserve channel IDs for multiple accounts on the same service and record blocked destinations.
 - prepare/publish: `content-publish`, consuming those finished assets and carrying forward existing authorization.
 
 Keep raw full transcripts unchanged. Refined excerpt transcripts go into `transcript/<clip-id>/transcript.json`. Images are conceptual unless they depict independently verified evidence. A source's personal story remains their own in all derivatives.

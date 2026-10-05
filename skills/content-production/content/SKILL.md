@@ -12,6 +12,12 @@ Move the production through artifact gates. Load and follow the matching phase s
 
 Any request to create clips, reels or shorts uses `youtube-remotion-clips` and the saved visual preset by default, regardless of video origin. "Create 5 clips from this YouTube video" already authorizes the complete clip-production workflow. Do not require a previous production, a style name or Remotion, and do not ask for style confirmation. Retain the preset unless the creator explicitly requests a different treatment. A missing local style profile does not remove the defaults. Source names, crops, language and illustration prompts come from the current recording.
 
+## Default clip destinations
+
+For Anthony, prepare each finished clip for Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every other available account in the selected Buffer organization. Discover channels live for each new batch. Include every channel ID, including multiple accounts on the same platform; a platform list is a minimum, not an account allowlist. An explicit destination subset in the current request overrides this default.
+
+Keep one delivery row per clip and channel ID, with native copy, required metadata, media, status and any blocker. Check video support and current destination requirements before scheduling. Report disconnected, locked, paused or unsupported channels and missing platforms instead of silently dropping them or reconnecting accounts. Newly connected channels join the next batch automatically. Rendering or copy-only requests prepare the packages; publishing requests carry forward the user's authorization and continue through Buffer scheduling and verification.
+
 ## Route
 
 | Current state or request | Load | Gate reached |
@@ -26,7 +32,7 @@ Any request to create clips, reels or shorts uses `youtube-remotion-clips` and t
 | Raw footage, review notes, or a rough timeline | `video-edit` | A vertical or horizontal master is approved |
 | A `.screenstudio` project or Screen Studio implementation problem | `screenstudio-edit` | The edit or reconstruction passes QC |
 | A canonical source that should become clips or posts | `content-repurpose` | Derivative candidates are traceable and approved |
-| A source or finished clip that needs X, LinkedIn, or Instagram copy | `social-post` | Native platform packages are approved |
+| A source or finished clip that needs Instagram, LinkedIn, X, YouTube, Threads, TikTok or another connected account's copy | `social-post` | Native platform packages are approved |
 | A finished master or approved platform package | `content-publish` | The publication works and its URL is recorded |
 
 For a clips-and-copy request, continue from `youtube-remotion-clips` to `social-post`, then `content-publish` in prepare mode. Skip scripting and recording when the source already exists. A generic existing-source request begins with `content-repurpose`; use the Remotion adapter when rendered clips are requested.

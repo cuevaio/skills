@@ -7,6 +7,12 @@ description: Schedule videos and social posts through Buffer, identify relevant 
 
 Use the user's requested accounts, content and cadence. A request to schedule content authorizes the scheduling work and routine caption adaptation within that scope. Ask for missing destination or timing only when it cannot be inferred; don't introduce a second approval gate when the user already authorized the action.
 
+## Default clip destinations
+
+For Anthony, prepare each finished clip for Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every other available account in the selected Buffer organization. Discover channels live for each new batch. Include every channel ID, including multiple accounts on the same platform; a platform list is a minimum, not an account allowlist. An explicit destination subset in the current request overrides this default.
+
+Keep one delivery row per clip and channel ID, with native copy, required metadata, media, status and any blocker. Check video support and current destination requirements before scheduling. Report disconnected, locked, paused or unsupported channels and missing platforms instead of silently dropping them or reconnecting accounts. Newly connected channels join the next batch automatically. Rendering or copy-only requests prepare the packages; publishing requests carry forward the user's authorization and continue through Buffer scheduling and verification.
+
 ## Discover the account and existing content
 
 Read the current [CLI guide](https://developers.buffer.com/guides/cli.md). Use `BUFFER_API_KEY` from the environment. Never print its value, source the whole shell configuration into output, or pass the key as a command argument. If a key exists only in a shell startup file, load only the required assignment securely.
@@ -18,7 +24,9 @@ buffer account --fields 'organizations.{id,name,limits.scheduledPosts},timezone'
 buffer channels list --organization-id <org-id> --fields id,name,displayName,service,timezone,isDisconnected,isLocked,isQueuePaused,postingSchedule
 ```
 
-Use the selected or unambiguous organization and name it before writes. Map X to service `twitter`. Inspect Instagram, LinkedIn and X separately. A video already posted to Instagram may still need LinkedIn, while X may already contain it. Do not deduplicate across platforms.
+Use the selected or unambiguous organization and name it before writes. Map X to service `twitter`; Instagram, LinkedIn, YouTube, Threads and TikTok use `instagram`, `linkedin`, `youtube`, `threads` and `tiktok`. Use all returned channel IDs as the discovery inventory, including additional services and multiple accounts per service. Check each channel's connection, lock, queue pause, schedule and video support. Include usable channels in the plan and record a blocker for the rest. Do not unpause queues or change account settings without authorization.
+
+Deduplicate by clip and channel ID. A video already posted to one Instagram account may still need a second Instagram account or LinkedIn. Never treat success on one channel as success for its platform or the entire batch. Use stable plan keys such as `<batch>:<clip-id>:<channel-id>`. Persist the complete discovery inventory and report uncovered channels or missing requested platforms.
 
 Read published history and the complete relevant queue for the target channels using one `posts list` query with `filter.channelIds`. Include all statuses for that scope when reconciling duplicates, rather than issuing one query per status. Avoid unrelated channels' history. `posts list` returns `{items,pageInfo}`. Follow `pageInfo.hasNextPage` and use the opaque `endCursor`. To fetch queue records, use JSON input with `filter.status` set to `scheduled`, `draft`, `needs_approval`, and `sending`. Inspect errors separately; they are not successful publications. Match source media and captions against the clip inventory, accounting for handles or punctuation in published copy.
 
@@ -68,6 +76,10 @@ For automatic publication at an explicit time:
 
 Instagram reels require `metadata.instagram.type: "reel"` and `metadata.instagram.shouldShareToFeed: true`. Select the first-frame cover using `assets[0].video.metadata.thumbnailOffset: 0`. Do not set a custom video thumbnail URL; the API rejects it.
 
+For YouTube Shorts, supply `metadata.youtube.title`, `categoryId` and explicit `privacy` matching the authorized audience. Buffer's current schema requires title and category on create even though the nested schema does not mark them required. Choose the category from the actual content, verify audience and disclosure settings, and inspect the current Shorts eligibility rules before reusing the master. The post's `text` holds its description. Do not invent `metadata.youtube.type: "short"`; use only fields supported by the current schema.
+
+For Threads, prepare a concise native video post; the Threads service is distinct from an X thread. Use a multi-post thread only when it is requested or needed for the idea. For TikTok, use the video caption in `text`, verify automatic versus notification publishing and disclosure settings, and select the first-frame cover only when supported. TikTok's metadata `title` is for photo posts, not a required video title. Discover required fields for any additional service instead of sending an Instagram payload everywhere. If automatic video publication is unavailable, record the required manual action and use notification scheduling only within the user's authorized scope.
+
 `addToQueue` lets Buffer assign the next available slots from the existing channel schedule, including multiple posts per day. When the user asks Buffer to choose times, omit `dueAt` and use this mode. This uses the configured schedule; it does not itself calculate new optimal times or change posting frequency. Use `customScheduled` only when the user wants a deliberate calendar. `schedulingType: notification` requires manual mobile publication.
 
 Validate every payload with `--dry-run` before bulk creation. A dry run does not verify media reachability or reserve a slot. Check posting limits with `dailyPostingLimits list`; CLI 1.2.2 requires a full ISO DateTime for `--date`, even though its help shows a date-only example.
@@ -78,7 +90,7 @@ Finding relevant people and tagging them is part of every Buffer video schedulin
 
 Verify who is speaking separately from identifying a company's founders or people named in the transcript. A founder's profile alone does not establish that they are the interviewee. For the OpenCode YC Lightcone batch, the interviewee is Jay V, founder and CEO, whose X handle is `@jayair` and LinkedIn profile is `https://www.linkedin.com/in/jayair/`. Dax Raad, `@thdxr`, is discussed in the coffee storefront clip; he is not the interviewee. Use Jay for speaker attribution and Dax only when the caption specifically discusses his work. This identity correction was supplied by the creator and corroborated by Jay's LinkedIn activity sharing the YC interview.
 
-Find and verify each relevant person's LinkedIn, X, and Instagram profiles independently using the person's own site, the actual profile, or reliable corroborating evidence. Save their name, aliases, profile URLs, verification sources, and unresolved platforms in a reusable profile map. Reuse verified results within the batch and recheck them for later batches. Do not infer an Instagram handle from an X handle. Omit accounts that cannot be verified, as the creator requested, and continue scheduling the rest.
+Find and verify each relevant person's profiles on the target services independently, including LinkedIn, X, Instagram, YouTube, Threads and TikTok where relevant using the person's own site, the actual profile, or reliable corroborating evidence. Save their name, aliases, profile URLs, verification sources, and unresolved platforms in a reusable profile map. Reuse verified results within the batch and recheck them for later batches. Do not infer an Instagram handle from an X handle. Omit accounts that cannot be verified, as the creator requested, and continue scheduling the rest.
 
 When a caption names or attributes an idea to an identified person, use their verified platform mention wherever supported. Include natural speaker or interviewer attribution when it helps explain or credit the clip, even if the initial caption only uses a role description. Keep the attribution faithful to the source and the creator's voice. Do not add unrelated people merely to increase reach. Check the final caption's length after inserting handles and record which mentions were applied or omitted on each platform.
 
@@ -96,7 +108,7 @@ There is no API idempotency key. Persist the intended payload before each `posts
 
 Request `post.id,post.text,post.status,post.dueAt,post.channelId,post.assets.source` in the create response, then verify the affected channels in one paginated `posts list` pass with all required fields, including `schedulingType` and any platform metadata being verified. This avoids spending one additional API call per post. Verify status, channel, text, media and due time against the plan. A successful request alone does not prove the post is scheduled. Preserve an attempt ledger, including partial success, and report exactly what was scheduled versus what remains blocked. Scheduled playback cannot be verified until publication.
 
-The bundled [scheduler](scripts/schedule.py) accepts a JSON plan containing `organizationId` and `posts`. Each post contains `key`, `service`, `channelId`, `text`, and `clip.path`. Set `mode: "addToQueue"` to let Buffer choose the time. For a custom schedule, use `mode: "customScheduled"` and include `dueAt`. A separate JSON media map associates local absolute file paths with stable public video URLs. Run without `--execute` for local validation; omitted URLs use a validation-only placeholder and never create posts. It requires all URLs before execution, records attempts durably, reconciles matching remote posts, and stops on unresolved writes.
+The bundled [scheduler](scripts/schedule.py) accepts a JSON plan containing `organizationId` and `posts`. Each post contains `key`, `service`, `channelId`, `text`, and `clip.path`. Optional `metadata` carries schema-validated service fields, including required YouTube title, category and privacy; optional `videoMetadata` carries supported cover settings. `schedulingType` defaults to `automatic`; use `notification` only for an authorized manual publication route. Set `mode: "addToQueue"` to let Buffer choose the time. For a custom schedule, use `mode: "customScheduled"` and include `dueAt`. A separate JSON media map associates local absolute file paths with stable public video URLs. Run without `--execute` for local validation; omitted URLs use a validation-only placeholder and never create posts. It requires all URLs before execution, records attempts durably, reconciles matching remote posts, and stops on unresolved writes.
 
 ```bash
 python scripts/schedule.py --plan /absolute/plan.json --ledger /absolute/ledger.jsonl
@@ -124,7 +136,7 @@ For 72 posts across three empty target queues, aim for roughly 77 remote request
 
 ## Queue limits and plan changes
 
-This creator prefers Buffer-selected posting times and multiple posts per day. Use `addToQueue` unless the current request specifies exact times. The connected schedules in October 2026 had two daily slots for Instagram and LinkedIn, and four for X.
+This creator prefers Buffer-selected posting times and multiple posts per day. Use `addToQueue` unless the current request specifies exact times. Read every target channel's current posting schedule, including YouTube, Threads, TikTok and additional services. Do not infer slots for new channels from Instagram, LinkedIn or X, or replace their schedules merely to match older accounts.
 
 Include the current organization limit in the discovery account read before planning around queue capacity. Use that saved response within the batch; fetch again only when settings change or a new batch starts:
 

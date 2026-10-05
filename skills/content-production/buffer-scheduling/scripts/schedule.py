@@ -62,12 +62,22 @@ def main():
         if args.execute and not url:
             raise RuntimeError('Missing public video URL for ' + post['clip']['path'])
         assert not url or url.startswith('https://'), 'Media must use HTTPS'
-        payload = {'channelId': post['channelId'], 'text': post['text'], 'schedulingType': 'automatic', 'mode': mode, 'assets': [{'video': {'url': url or 'https://example.invalid/validation-only.mp4'}}]}
+        payload = {'channelId': post['channelId'], 'text': post['text'], 'schedulingType': post.get('schedulingType', 'automatic'), 'mode': mode, 'assets': [{'video': {'url': url or 'https://example.invalid/validation-only.mp4'}}]}
         if mode == 'customScheduled':
             payload['dueAt'] = post['dueAt']
+        if post.get('metadata'):
+            payload['metadata'] = post['metadata']
+        if post.get('videoMetadata'):
+            payload['assets'][0]['video']['metadata'] = post['videoMetadata']
         if post['service'] == 'instagram':
-            payload['metadata'] = {'instagram': {'type': 'reel', 'shouldShareToFeed': True}}
-            payload['assets'][0]['video']['metadata'] = {'thumbnailOffset': 0}
+            payload.setdefault('metadata', {}).setdefault('instagram', {})
+            payload['metadata']['instagram'].setdefault('type', 'reel')
+            payload['metadata']['instagram'].setdefault('shouldShareToFeed', True)
+            payload['assets'][0]['video'].setdefault('metadata', {}).setdefault('thumbnailOffset', 0)
+        if post['service'] == 'youtube':
+            youtube = payload.get('metadata', {}).get('youtube', {})
+            if not all(youtube.get(field) for field in ('title', 'categoryId', 'privacy')):
+                raise RuntimeError('YouTube requires title, categoryId and explicit privacy: ' + post['key'])
         cli(['posts', 'create', '--input', '-', '--dry-run'], payload)
         payloads.append((post, payload))
     if not args.execute:

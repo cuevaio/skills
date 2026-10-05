@@ -1,6 +1,6 @@
 ---
 name: social-post
-description: Write platform-native social posts from approved source material in the creator's voice. Use for X posts or threads, LinkedIn posts, Instagram captions or Reel packages, cross-platform launch copy, hooks, CTAs, alt text, cover text, pinned comments, or adapting one source without pasting identical copy everywhere.
+description: Write platform-native social posts from approved source material in the creator's voice. Use for X posts or threads, LinkedIn posts, Instagram captions or Reel packages, YouTube Shorts titles and descriptions, Threads posts, TikTok captions, cross-platform launch copy, hooks, CTAs, alt text, cover text, pinned comments, or adapting one source without pasting identical copy everywhere.
 ---
 
 # Write Social Posts
@@ -12,6 +12,12 @@ Check the selected platform's calibration status in the profile. An uncalibrated
 ## Creator defaults
 
 For this creator, read [the saved creator style](../content-voice/references/creator-style.md) alongside any local `CONTENT_STYLE.md`. Use the approved lowercase, casual voice and native platform adaptations. For interview recommendations, integrate source context into the specific takeaway rather than attaching a fixed attribution footer. The profile distinguishes supported first-person learning from the speaker's experiences.
+
+## Default clip destinations
+
+For Anthony, prepare each finished clip for Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every other available account in the selected Buffer organization. Discover channels live for each new batch. Include every channel ID, including multiple accounts on the same platform; a platform list is a minimum, not an account allowlist. An explicit destination subset in the current request overrides this default.
+
+Keep one delivery row per clip and channel ID, with native copy, required metadata, media, status and any blocker. Check video support and current destination requirements before scheduling. Report disconnected, locked, paused or unsupported channels and missing platforms instead of silently dropping them or reconnecting accounts. Newly connected channels join the next batch automatically. Rendering or copy-only requests prepare the packages; publishing requests carry forward the user's authorization and continue through Buffer scheduling and verification.
 
 ## 1. Establish The Post Job
 
@@ -33,6 +39,11 @@ Read only the selected reference:
 - [X](references/x.md)
 - [LinkedIn](references/linkedin.md)
 - [Instagram](references/instagram.md)
+- [YouTube Shorts](references/youtube.md)
+- [Threads](references/threads.md)
+- [TikTok](references/tiktok.md)
+
+For another connected Buffer service, adapt from the original source using that destination's current requirements and preview. Keep all target channel IDs in the handoff even when accounts share a platform. Keep new platform adaptations provisional where the voice profile lacks calibration; do not block an already authorized publishing task solely because the platform is new.
 
 For a cross-platform request, create each package from the source artifact, not by editing one platform's post into the next.
 

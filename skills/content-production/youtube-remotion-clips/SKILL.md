@@ -16,6 +16,12 @@ The visual style is a permanent creator preference, independent of source origin
 
 Override the visual treatment only when the current request or an explicit project preference calls for another style. If no local `CONTENT_STYLE.md` exists, use the bundled preset directly; its absence is not a reason to ask again or choose a generic style. When the recording has no speaker camera, use the relevant source screen or footage in the camera region, keeping the same typography, timing, image treatment and audio defaults. Do not manufacture a speaker portrait.
 
+## Default clip destinations
+
+For Anthony, prepare each finished clip for Instagram, LinkedIn, X, YouTube Shorts, Threads and TikTok, plus every other available account in the selected Buffer organization. Discover channels live for each new batch. Include every channel ID, including multiple accounts on the same platform; a platform list is a minimum, not an account allowlist. An explicit destination subset in the current request overrides this default.
+
+Keep one delivery row per clip and channel ID, with native copy, required metadata, media, status and any blocker. Check video support and current destination requirements before scheduling. Report disconnected, locked, paused or unsupported channels and missing platforms instead of silently dropping them or reconnecting accounts. Newly connected channels join the next batch automatically. Rendering or copy-only requests prepare the packages; publishing requests carry forward the user's authorization and continue through Buffer scheduling and verification.
+
 ## Style and resources
 
 The default is already approved for Anthony. Use the approved [creator profile](../content-voice/references/creator-style.md) when installed and the bundled [style preset](assets/remotion/style.json). A project `CONTENT_STYLE.md` and current instructions override those defaults. For another creator, adapt the preset to their preferences. Social-copy lowercase does not change source quotations or subtitle spelling.
@@ -70,4 +76,4 @@ Check encoded MP4s, not just the editor. Run `scripts/verify_exports.py`, inspec
 
 Use `scripts/create_review.py` for an offline review page and `scripts/package_revision.py` for the current clip count. Preserve editable metadata, raw transcripts, source ranges, provenance, MP4s, SRTs and covers. Exclude standalone licensed sound, source recordings, runtime packages and model weights from delivery bundles.
 
-Hand off clip id, complete idea, source range, speaker/interviewer context, final files and caveats to `social-post`. It owns naturally framed platform captions; do not duplicate its voice rules here. For clips-and-copy requests, continue through the requested outputs without stopping at the render phase. Public posting requires existing authorization for that action.
+Hand off clip id, complete idea, source range, speaker/interviewer context, final files, destination coverage and caveats to `social-post`. It owns naturally framed platform captions; do not duplicate its voice rules here. For clips-and-copy requests, continue through the requested outputs without stopping at the render phase. Public posting requires existing authorization for that action.
